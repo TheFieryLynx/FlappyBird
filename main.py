@@ -8,7 +8,7 @@ import settings
 
 if __name__ == "__main__":
     pygame.init()
-    background_image = pygame.image.load('assets/background.png')
+    background_image = pygame.image.load('assets/background-0.png')
     background_group = pygame.sprite.Group()
 
 
