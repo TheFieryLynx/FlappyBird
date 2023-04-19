@@ -2,8 +2,24 @@ import os
 import pygame
 import time
 
+from enum import Enum
+
 #local imports
 import settings
+from states import ScreenState
+
+screen_state = ScreenState.MENU
+background_state = 0
+
+BACKGROUND_IMAGES = [
+    pygame.image.load('assets/background-0.png'),
+    pygame.image.load('assets/background-1.png'),
+    pygame.image.load('assets/background-2.png')
+]
+
+MENU_IMAGE = pygame.image.load('assets/menu.png')
+SETTINGS_IMAGE = pygame.image.load('assets/settings.png')
+BACKGROUND_FRAME = pygame.image.load('assets/background-frame.png')
 
 class Bird(pygame.sprite.Sprite):
     def __init__(self):
@@ -36,6 +52,9 @@ class Bird(pygame.sprite.Sprite):
     def set_beige_bird(self):
         self.current_bird = self.birds['beige']
 
+if __name__ == "__main__":
+    pygame.init()
+
     def fly(self):
         self.current_image = (self.current_image + 1) % 2
         self.image = self.current_bird[self.current_image]
@@ -66,6 +85,39 @@ def run_game():
 
         bird_group.draw(screen)
         
+    while True:
+        screen.blit(BACKGROUND_IMAGES[background_state], (0, 0))
+
+        if screen_state == ScreenState.MENU:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        screen_state = ScreenState.PLAY
+                    if event.key == pygame.K_s:
+                        screen_state = ScreenState.SETTINGS
+
+            screen.blit(MENU_IMAGE, (0, 0))
+        elif screen_state == ScreenState.SETTINGS:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_m:
+                        screen_state = ScreenState.MENU
+                    if event.key == pygame.K_f:
+                        background_state = (background_state + 1) % 3
+
+            screen.blit(SETTINGS_IMAGE, (0, 0))
+            screen.blit(
+                BACKGROUND_FRAME, 
+                (
+                    settings.BACKGROUND_SETTING_X + settings.BACKGROUND_SETTING_WIDTH * background_state, 
+                    settings.BACKGROUND_SETTING_Y
+                )
+            )
+
         pygame.display.update()
 
 if __name__ == "__main__":
