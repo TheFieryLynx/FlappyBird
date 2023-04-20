@@ -8,29 +8,30 @@ from enum import Enum
 import settings
 from states import ScreenState
 
-screen_state = ScreenState.MENU
-
-MENU_IMAGE = pygame.image.load('assets/menu.png')
-SETTINGS_IMAGE = pygame.image.load('assets/settings.png')
-BACKGROUND_FRAME = pygame.image.load('assets/background-frame.png')
+MENU_LAYOUT = pygame.image.load('assets/layouts/menu-layout.png')
+BACKGROUND_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/background-settings-layout.png')
+BIRD_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/bird-settings-layout.png')
+COLUMN_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/column-settings-layout.png')
+VERTICAL_FRAME = pygame.image.load('assets/vertical-frame.png')
 
 class Bird(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
 
-        self.birds = {
-            'beige' : [
-                pygame.image.load('assets/bird-beige-1.png').convert_alpha(),
-                pygame.image.load('assets/bird-beige-2.png').convert_alpha()
+        self.birds = [
+            [
+                pygame.image.load('assets/birds/bird-0-up.png').convert_alpha(),
+                pygame.image.load('assets/birds/bird-0-down.png').convert_alpha()
             ],
-            'yellow' : [
-                pygame.image.load('assets/bird-yellow-1.png').convert_alpha(),
-                pygame.image.load('assets/bird-yellow-2.png').convert_alpha()
+            [
+                pygame.image.load('assets/birds/bird-1-up.png').convert_alpha(),
+                pygame.image.load('assets/birds/bird-1-down.png').convert_alpha()
             ]
-        }
+        ]
         self.fall = 0
-        self.set_yellow_bird()
         self.current_image = 0
+        self.current_bird_idx = 0
+        self.current_bird = self.birds[self.current_bird_idx]
         self.image = self.current_bird[self.current_image]
         self.set_position()
         
@@ -39,8 +40,9 @@ class Bird(pygame.sprite.Sprite):
         self.rect[0] = settings.BIRD_INIT_X
         self.rect[1] = settings.BIRD_INIT_Y
 
-    def set_yellow_bird(self):
-        self.current_bird = self.birds['yellow']
+    def change_bird(self):
+        self.current_image = (self.current_bird_idx + 1) % len(self.birds)
+        self.current_bird = self.birds[self.current_bird_idx]
     
     def set_beige_bird(self):
         self.current_bird = self.birds['beige']
@@ -60,14 +62,17 @@ class Bird(pygame.sprite.Sprite):
 class Background():
     def __init__(self):
         self.backgrounds = [
-            pygame.image.load('assets/background-0.png'),
-            pygame.image.load('assets/background-1.png'),
-            pygame.image.load('assets/background-2.png')
+            pygame.image.load('assets/backgrounds/background-0.png'),
+            pygame.image.load('assets/backgrounds/background-1.png'),
+            pygame.image.load('assets/backgrounds/background-2.png')
         ]
         self.current_background = 0
         
-    def change_background(self):
+    def change_background_right(self):
         self.current_background = (self.current_background + 1) % 3
+
+    def change_background_left(self):
+        self.current_background = (self.current_background - 1) % 3
 
     def get_image(self):
         return self.backgrounds[self.current_background]
@@ -87,25 +92,31 @@ def welcome_screen():
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 screen.state = ScreenState.PLAY
-            if event.key == pygame.K_s:
-                screen.state = ScreenState.SETTINGS
-    screen.blit(MENU_IMAGE, (0, 0))
+            elif event.key == pygame.K_b:
+                screen.state = ScreenState.BIRD_SETTINGS
+            elif event.key == pygame.K_f:
+                screen.state = ScreenState.BACKGROUND_SETTINGS
+            elif event.key == pygame.K_s:
+                screen.state = ScreenState.COLUMN_SETTINGS
+    screen.blit(MENU_LAYOUT, (0, 0))
     pygame.time.Clock().tick(10)
     bird.fly()
     bird_group.draw(screen.screen)
 
-def settings_screen():
+def background_settings_screen():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_m:
+            if event.key == pygame.K_b:
                 screen.state = ScreenState.MENU
-            if event.key == pygame.K_f:
-                background.change_background()
-    screen.blit(SETTINGS_IMAGE, (0, 0))
+            elif event.key == pygame.K_RIGHT:
+                background.change_background_right()
+            elif event.key == pygame.K_LEFT:
+                background.change_background_left()
+    screen.blit(BACKGROUND_SETTINGS_LAYOUT, (0, 0))
     screen.blit(
-        BACKGROUND_FRAME, 
+        VERTICAL_FRAME, 
         (
             settings.BACKGROUND_SETTING_X + settings.BACKGROUND_SETTING_WIDTH * background.current_background, 
             settings.BACKGROUND_SETTING_Y
@@ -117,43 +128,12 @@ def run_game():
         pygame.time.Clock().tick(20)
         screen.blit(background.get_image(), (0, 0))
 
-        if screen.state == ScreenState.MENU:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        screen.state = ScreenState.PLAY
-                    if event.key == pygame.K_s:
-                        screen.state = ScreenState.SETTINGS
-            screen.blit(MENU_IMAGE, (0, 0))
-
-        elif screen.state == ScreenState.SETTINGS:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_m:
-                        screen.state = ScreenState.MENU
-                    if event.key == pygame.K_f:
-                        background_state = (background_state + 1) % 3
-
-            screen.blit(SETTINGS_IMAGE, (0, 0))
-            screen.blit(
-                BACKGROUND_FRAME, 
-                (
-                    settings.BACKGROUND_SETTING_X + settings.BACKGROUND_SETTING_WIDTH * background_state, 
-                    settings.BACKGROUND_SETTING_Y
-                )
-            )
-        
-        elif screen.state == ScreenState.PLAY:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        bird.jump()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    bird.jump()
 
         bird_group.update()
         bird_group.draw(screen.screen)
@@ -176,8 +156,8 @@ if __name__ == "__main__":
 
         if screen.state == ScreenState.MENU:
             welcome_screen()
-        elif screen.state == ScreenState.SETTINGS:
-            settings_screen()
+        elif screen.state == ScreenState.BACKGROUND_SETTINGS:
+            background_settings_screen()
         elif screen.state == ScreenState.PLAY:
             run_game()
 
