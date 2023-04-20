@@ -13,21 +13,18 @@ BACKGROUND_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/background-settin
 BIRD_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/bird-settings-layout.png')
 COLUMN_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/column-settings-layout.png')
 VERTICAL_FRAME = pygame.image.load('assets/vertical-frame.png')
+HORIZONTAL_FRAME = pygame.image.load('assets/horizontal-frame.png')
 
 class Bird(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
 
-        self.birds = [
-            [
-                pygame.image.load('assets/birds/bird-0-up.png').convert_alpha(),
-                pygame.image.load('assets/birds/bird-0-down.png').convert_alpha()
-            ],
-            [
-                pygame.image.load('assets/birds/bird-1-up.png').convert_alpha(),
-                pygame.image.load('assets/birds/bird-1-down.png').convert_alpha()
-            ]
-        ]
+        self.birds = []
+        for i in range(9):
+            self.birds.append([
+                pygame.image.load(f'assets/birds/bird-{i}-up.png').convert_alpha(),
+                pygame.image.load(f'assets/birds/bird-{i}-down.png').convert_alpha()
+            ])
         self.fall = 0
         self.current_image = 0
         self.current_bird_idx = 0
@@ -40,9 +37,25 @@ class Bird(pygame.sprite.Sprite):
         self.rect[0] = settings.BIRD_INIT_X
         self.rect[1] = settings.BIRD_INIT_Y
 
-    def change_bird(self):
-        self.current_image = (self.current_bird_idx + 1) % len(self.birds)
-        self.current_bird = self.birds[self.current_bird_idx]
+    def change_bird_right(self):
+        if (self.current_bird_idx % 3 != 2):
+            self.current_bird_idx = (self.current_bird_idx + 1) % 9
+            self.current_bird = self.birds[self.current_bird_idx]
+
+    def change_bird_left(self):
+        if (self.current_bird_idx % 3 != 0):
+            self.current_bird_idx = (self.current_bird_idx - 1) % 9
+            self.current_bird = self.birds[self.current_bird_idx]
+    
+    def change_bird_up(self):
+        if (self.current_bird_idx // 3 != 0):
+            self.current_bird_idx = (self.current_bird_idx - 3) % 9
+            self.current_bird = self.birds[self.current_bird_idx]
+    
+    def change_bird_down(self):
+        if (self.current_bird_idx // 3 != 2):
+            self.current_bird_idx = (self.current_bird_idx + 3) % 9
+            self.current_bird = self.birds[self.current_bird_idx]
     
     def set_beige_bird(self):
         self.current_bird = self.birds['beige']
@@ -123,6 +136,30 @@ def background_settings_screen():
         )
     )
 
+def bird_settings_screen():
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_b:
+                screen.state = ScreenState.MENU
+            elif event.key == pygame.K_RIGHT:
+                bird.change_bird_right()
+            elif event.key == pygame.K_LEFT:
+                bird.change_bird_left()
+            elif event.key == pygame.K_UP:
+                bird.change_bird_up()
+            elif event.key == pygame.K_DOWN:
+                bird.change_bird_down()
+    screen.blit(BIRD_SETTINGS_LAYOUT, (0, 0))
+    screen.blit(
+        HORIZONTAL_FRAME, 
+        (
+            settings.BIRD_SETTING_X + settings.BIRD_SETTING_WIDTH * (bird.current_bird_idx % 3), 
+            settings.BIRD_SETTING_Y + settings.BIRD_SETTING_HEIGHT * (bird.current_bird_idx // 3)
+        )
+    )
+
 def run_game():
     while True:
         pygame.time.Clock().tick(20)
@@ -158,6 +195,8 @@ if __name__ == "__main__":
             welcome_screen()
         elif screen.state == ScreenState.BACKGROUND_SETTINGS:
             background_settings_screen()
+        elif screen.state == ScreenState.BIRD_SETTINGS:
+            bird_settings_screen()
         elif screen.state == ScreenState.PLAY:
             run_game()
 
