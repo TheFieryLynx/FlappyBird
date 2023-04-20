@@ -19,6 +19,7 @@ class Bird(pygame.sprite.Sprite):
                 pygame.image.load('assets/bird-yellow-2.png').convert_alpha()
             ]
         }
+        self.fall = 0
         self.set_yellow_bird()
         self.current_image = 0
         self.image = self.current_bird[self.current_image]
@@ -26,8 +27,8 @@ class Bird(pygame.sprite.Sprite):
         
     def set_position(self):
         self.rect = self.image.get_rect()
-        self.rect[0] = 70
-        self.rect[1] = 276
+        self.rect[0] = settings.BIRD_INIT_X
+        self.rect[1] = settings.BIRD_INIT_Y
 
     def set_yellow_bird(self):
         self.current_bird = self.birds['yellow']
@@ -38,21 +39,31 @@ class Bird(pygame.sprite.Sprite):
     def fly(self):
         self.current_image = (self.current_image + 1) % 2
         self.image = self.current_bird[self.current_image]
+    
+    def jump(self):
+        self.fall -= 15
+
+    def update(self):
+        self.fly()
+        self.fall += 2
+        self.rect[1] += self.fall
 
 def welcome_screen():
     pass
 
 def run_game():
     while True:
-        pygame.time.Clock().tick(10)
+        pygame.time.Clock().tick(15)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    bird.jump()
         screen.blit(background_image, (0, 0))
         
-        bird.fly()
-
         bird_group.update()
+
         bird_group.draw(screen)
         
         pygame.display.update()
