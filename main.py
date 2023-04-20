@@ -50,7 +50,7 @@ class Bird(pygame.sprite.Sprite):
         self.image = self.current_bird[self.current_image]
     
     def jump(self):
-        self.fall -= 15
+        self.fall -= 20
 
     def update(self):
         self.fly()
@@ -114,7 +114,7 @@ def settings_screen():
 
 def run_game():
     while True:
-        pygame.time.Clock().tick(15)
+        pygame.time.Clock().tick(20)
         screen.blit(background.get_image(), (0, 0))
 
         if screen.state == ScreenState.MENU:
@@ -123,18 +123,18 @@ def run_game():
                     pygame.quit()
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        screen_state = ScreenState.PLAY
+                        screen.state = ScreenState.PLAY
                     if event.key == pygame.K_s:
-                        screen_state = ScreenState.SETTINGS
-
+                        screen.state = ScreenState.SETTINGS
             screen.blit(MENU_IMAGE, (0, 0))
+
         elif screen.state == ScreenState.SETTINGS:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_m:
-                        screen_state = ScreenState.MENU
+                        screen.state = ScreenState.MENU
                     if event.key == pygame.K_f:
                         background_state = (background_state + 1) % 3
 
