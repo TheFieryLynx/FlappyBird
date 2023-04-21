@@ -25,7 +25,7 @@ class Bird(pygame.sprite.Sprite):
                 pygame.image.load(f'assets/birds/bird-{i}-up.png').convert_alpha(),
                 pygame.image.load(f'assets/birds/bird-{i}-down.png').convert_alpha()
             ])
-        self.fall = 0
+        self.fall = 20
         self.current_image = 0
         self.current_bird_idx = 0
         self.current_bird = self.birds[self.current_bird_idx]
@@ -65,11 +65,6 @@ class Bird(pygame.sprite.Sprite):
             self.current_bird = self.birds[self.current_bird_idx]
             self.image = self.current_bird[self.current_image]
             self.mask = pygame.mask.from_surface(self.image)
-            
-    # def change_bird(self):
-    #     self.current_image = (self.current_bird_idx + 1) % len(self.birds)
-    #     self.current_bird = self.birds[self.current_bird_idx]
-    #     self.mask = pygame.mask.from_surface(self.image)
     
     def set_beige_bird(self):
         self.current_bird = self.birds['beige']
@@ -79,11 +74,11 @@ class Bird(pygame.sprite.Sprite):
         self.image = self.current_bird[self.current_image]
     
     def jump(self):
-        self.fall -= 20
+        self.fall = -25
 
     def update(self):
         self.fly()
-        self.fall += 2
+        self.fall += 3
         self.rect[1] += self.fall
 
     def reset(self):
@@ -231,7 +226,6 @@ if __name__ == "__main__":
 
     while True:
         screen.blit(background.get_image(), (0, 0))
-        print(screen.state)
         if screen.state == ScreenState.MENU:
             welcome_screen()
         elif screen.state == ScreenState.BACKGROUND_SETTINGS:
