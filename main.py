@@ -30,6 +30,7 @@ class Bird(pygame.sprite.Sprite):
         self.current_bird_idx = 0
         self.current_bird = self.birds[self.current_bird_idx]
         self.image = self.current_bird[self.current_image]
+        self.mask = pygame.mask.from_surface(self.image)
         self.set_position()
         
     def set_position(self):
@@ -41,21 +42,34 @@ class Bird(pygame.sprite.Sprite):
         if (self.current_bird_idx % 3 != 2):
             self.current_bird_idx = (self.current_bird_idx + 1) % 9
             self.current_bird = self.birds[self.current_bird_idx]
+            self.image = self.current_bird[self.current_image]
+            self.mask = pygame.mask.from_surface(self.image)
 
     def change_bird_left(self):
         if (self.current_bird_idx % 3 != 0):
             self.current_bird_idx = (self.current_bird_idx - 1) % 9
             self.current_bird = self.birds[self.current_bird_idx]
+            self.image = self.current_bird[self.current_image]
+            self.mask = pygame.mask.from_surface(self.image)
     
     def change_bird_up(self):
         if (self.current_bird_idx // 3 != 0):
             self.current_bird_idx = (self.current_bird_idx - 3) % 9
             self.current_bird = self.birds[self.current_bird_idx]
+            self.image = self.current_bird[self.current_image]
+            self.mask = pygame.mask.from_surface(self.image)
     
     def change_bird_down(self):
         if (self.current_bird_idx // 3 != 2):
             self.current_bird_idx = (self.current_bird_idx + 3) % 9
             self.current_bird = self.birds[self.current_bird_idx]
+            self.image = self.current_bird[self.current_image]
+            self.mask = pygame.mask.from_surface(self.image)
+            
+    # def change_bird(self):
+    #     self.current_image = (self.current_bird_idx + 1) % len(self.birds)
+    #     self.current_bird = self.birds[self.current_bird_idx]
+    #     self.mask = pygame.mask.from_surface(self.image)
     
     def set_beige_bird(self):
         self.current_bird = self.birds['beige']
@@ -71,6 +85,11 @@ class Bird(pygame.sprite.Sprite):
         self.fly()
         self.fall += 2
         self.rect[1] += self.fall
+
+    def reset(self):
+        self.set_position()
+        self.fall = 0
+
 
 class Background():
     def __init__(self):
@@ -98,6 +117,15 @@ class Screen():
     def blit(self, image, offset):
         self.screen.blit(image, offset)
 
+class Frame(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load('assets/game-frame.png').convert_alpha()
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
+        self.rect[0] = 0
+        self.rect[1] = 0
+
 def welcome_screen():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -115,6 +143,7 @@ def welcome_screen():
     pygame.time.Clock().tick(10)
     bird.fly()
     bird_group.draw(screen.screen)
+    frame_group.draw(screen.screen)
 
 def background_settings_screen():
     for event in pygame.event.get():
@@ -135,6 +164,7 @@ def background_settings_screen():
             settings.BACKGROUND_SETTING_Y
         )
     )
+    frame_group.draw(screen.screen)
 
 def bird_settings_screen():
     for event in pygame.event.get():
@@ -174,7 +204,14 @@ def run_game():
 
         bird_group.update()
         bird_group.draw(screen.screen)
+        frame_group.draw(screen.screen)
         pygame.display.update()
+
+        if pygame.sprite.groupcollide(bird_group, frame_group, False, False, pygame.sprite.collide_mask):
+            screen.state = ScreenState.MENU
+            bird.reset()
+            time.sleep(1)
+            break
 
 if __name__ == "__main__":
     pygame.init()
@@ -184,13 +221,17 @@ if __name__ == "__main__":
     bird_group = pygame.sprite.Group()
     bird_group.add(bird)
 
+    frame = Frame()
+    frame_group = pygame.sprite.Group()
+    frame_group.add(frame)
+
     background = Background()
     
     pygame.display.set_caption('Flappy Bird')
 
     while True:
         screen.blit(background.get_image(), (0, 0))
-
+        print(screen.state)
         if screen.state == ScreenState.MENU:
             welcome_screen()
         elif screen.state == ScreenState.BACKGROUND_SETTINGS:
@@ -199,6 +240,7 @@ if __name__ == "__main__":
             bird_settings_screen()
         elif screen.state == ScreenState.PLAY:
             run_game()
+          
 
         pygame.display.update()
 
