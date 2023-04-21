@@ -11,7 +11,7 @@ from states import ScreenState
 MENU_LAYOUT = pygame.image.load('assets/layouts/menu-layout.png')
 BACKGROUND_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/background-settings-layout.png')
 BIRD_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/bird-settings-layout.png')
-COLUMN_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/barrier-settings-layout.png')
+BARRIER_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/barrier-settings-layout.png')
 GAME_OVER_LAYOUT = pygame.image.load('assets/layouts/game-over-layout.png')
 VERTICAL_FRAME = pygame.image.load('assets/vertical-frame.png')
 HORIZONTAL_FRAME = pygame.image.load('assets/horizontal-frame.png')
@@ -87,21 +87,21 @@ class Bird(pygame.sprite.Sprite):
         self.fall = 0
 
 class Barrier(pygame.sprite.Sprite):
-    def __init__(self, inverted, xpos, ysize):
+    def __init__(self):
         self.barriers = []
         for i in range(2):
-            self.barriers.append([
+            self.barriers.append(
                 pygame.image.load(f'assets/barriers/barrier-{i}.png').convert_alpha(),
-            ])
+            )
         self.current_barrier_idx = 0
         self.image = self.barriers[self.current_barrier_idx]
         self.mask = pygame.mask.from_surface(self.image)
 
     def change_barrier_right(self):
-        self.current_background = (self.current_background + 1) % len(self.barriers)
+        self.current_barrier_idx = (self.current_barrier_idx + 1) % len(self.barriers)
 
     def change_barrier_left(self):
-        self.current_background = (self.current_background - 1) % len(self.barriers)
+        self.current_barrier_idx = (self.current_barrier_idx - 1) % len(self.barriers)
 
 
 class Background():
@@ -151,7 +151,7 @@ def welcome_screen():
             elif event.key == pygame.K_f:
                 screen.state = ScreenState.BACKGROUND_SETTINGS
             elif event.key == pygame.K_s:
-                screen.state = ScreenState.COLUMN_SETTINGS
+                screen.state = ScreenState.BARRIER_SETTINGS
     screen.blit(MENU_LAYOUT, (0, 0))
     pygame.time.Clock().tick(10)
     bird.fly()
@@ -177,7 +177,6 @@ def background_settings_screen():
             settings.BACKGROUND_SETTING_Y
         )
     )
-    frame_group.draw(screen.screen)
 
 def bird_settings_screen():
     for event in pygame.event.get():
@@ -200,6 +199,26 @@ def bird_settings_screen():
         (
             settings.BIRD_SETTING_X + settings.BIRD_SETTING_WIDTH * (bird.current_bird_idx % 3), 
             settings.BIRD_SETTING_Y + settings.BIRD_SETTING_HEIGHT * (bird.current_bird_idx // 3)
+        )
+    )
+
+def barrier_settings_screen():
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RETURN:
+                screen.state = ScreenState.MENU
+            elif event.key == pygame.K_RIGHT:
+                barrier.change_barrier_right()
+            elif event.key == pygame.K_LEFT:
+                barrier.change_barrier_left()
+    screen.blit(BARRIER_SETTINGS_LAYOUT, (0, 0))
+    screen.blit(
+        VERTICAL_FRAME, 
+        (
+            settings.BARRIER_SETTING_X + settings.BARRIER_SETTING_WIDTH * barrier.current_barrier_idx, 
+            settings.BARRIER_SETTING_Y
         )
     )
 
@@ -238,7 +257,7 @@ def game_over():
             elif event.key == pygame.K_f:
                 screen.state = ScreenState.BACKGROUND_SETTINGS
             elif event.key == pygame.K_s:
-                screen.state = ScreenState.COLUMN_SETTINGS
+                screen.state = ScreenState.BARRIER_SETTINGS
     screen.blit(GAME_OVER_LAYOUT, (0, 0))
     pygame.time.Clock().tick(10)
     frame_group.draw(screen.screen)
@@ -256,6 +275,7 @@ if __name__ == "__main__":
     frame_group.add(frame)
 
     background = Background()
+    barrier = Barrier()
     
     pygame.display.set_caption('Flappy Bird')
 
@@ -267,6 +287,8 @@ if __name__ == "__main__":
             background_settings_screen()
         elif screen.state == ScreenState.BIRD_SETTINGS:
             bird_settings_screen()
+        elif screen.state == ScreenState.BARRIER_SETTINGS:
+            barrier_settings_screen()
         elif screen.state == ScreenState.PLAY:
             run_game()
         elif screen.state == ScreenState.GAME_OVER:
