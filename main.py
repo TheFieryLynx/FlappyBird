@@ -11,7 +11,7 @@ from states import ScreenState
 MENU_LAYOUT = pygame.image.load('assets/layouts/menu-layout.png')
 BACKGROUND_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/background-settings-layout.png')
 BIRD_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/bird-settings-layout.png')
-COLUMN_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/column-settings-layout.png')
+COLUMN_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/barrier-settings-layout.png')
 VERTICAL_FRAME = pygame.image.load('assets/vertical-frame.png')
 HORIZONTAL_FRAME = pygame.image.load('assets/horizontal-frame.png')
 
@@ -150,7 +150,7 @@ def background_settings_screen():
         if event.type == pygame.QUIT:
             pygame.quit()
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_b:
+            if event.key == pygame.K_RETURN:
                 screen.state = ScreenState.MENU
             elif event.key == pygame.K_RIGHT:
                 background.change_background_right()
@@ -171,7 +171,7 @@ def bird_settings_screen():
         if event.type == pygame.QUIT:
             pygame.quit()
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_b:
+            if event.key == pygame.K_RETURN:
                 screen.state = ScreenState.MENU
             elif event.key == pygame.K_RIGHT:
                 bird.change_bird_right()
