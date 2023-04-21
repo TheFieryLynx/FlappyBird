@@ -25,7 +25,7 @@ class Bird(pygame.sprite.Sprite):
                 pygame.image.load(f'assets/birds/bird-{i}-up.png').convert_alpha(),
                 pygame.image.load(f'assets/birds/bird-{i}-down.png').convert_alpha()
             ])
-        self.fall = 20
+        self.fall = 0
         self.current_image = 0
         self.current_bird_idx = 0
         self.current_bird = self.birds[self.current_bird_idx]
@@ -85,21 +85,38 @@ class Bird(pygame.sprite.Sprite):
         self.set_position()
         self.fall = 0
 
+class Barrier(pygame.sprite.Sprite):
+    def __init__(self, inverted, xpos, ysize):
+        self.barriers = []
+        for i in range(2):
+            self.barriers.append([
+                pygame.image.load(f'assets/barriers/barrier-{i}.png').convert_alpha(),
+            ])
+        self.current_barrier_idx = 0
+        self.image = self.barriers[self.current_barrier_idx]
+        self.mask = pygame.mask.from_surface(self.image)
+
+    def change_barrier_right(self):
+        self.current_background = (self.current_background + 1) % len(self.barriers)
+
+    def change_barrier_left(self):
+        self.current_background = (self.current_background - 1) % len(self.barriers)
+
 
 class Background():
     def __init__(self):
-        self.backgrounds = [
-            pygame.image.load('assets/backgrounds/background-0.png'),
-            pygame.image.load('assets/backgrounds/background-1.png'),
-            pygame.image.load('assets/backgrounds/background-2.png')
-        ]
+        self.backgrounds = []
+        for i in range(3):
+            self.backgrounds.append(
+                pygame.image.load(f'assets/backgrounds/background-{i}.png'),
+            )
         self.current_background = 0
         
     def change_background_right(self):
-        self.current_background = (self.current_background + 1) % 3
+        self.current_background = (self.current_background + 1) % len(self.backgrounds)
 
     def change_background_left(self):
-        self.current_background = (self.current_background - 1) % 3
+        self.current_background = (self.current_background - 1) % len(self.backgrounds)
 
     def get_image(self):
         return self.backgrounds[self.current_background]
