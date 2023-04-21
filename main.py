@@ -12,6 +12,7 @@ MENU_LAYOUT = pygame.image.load('assets/layouts/menu-layout.png')
 BACKGROUND_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/background-settings-layout.png')
 BIRD_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/bird-settings-layout.png')
 COLUMN_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/barrier-settings-layout.png')
+GAME_OVER_LAYOUT = pygame.image.load('assets/layouts/game-over-layout.png')
 VERTICAL_FRAME = pygame.image.load('assets/vertical-frame.png')
 HORIZONTAL_FRAME = pygame.image.load('assets/horizontal-frame.png')
 
@@ -203,10 +204,27 @@ def run_game():
         pygame.display.update()
 
         if pygame.sprite.groupcollide(bird_group, frame_group, False, False, pygame.sprite.collide_mask):
-            screen.state = ScreenState.MENU
+            screen.state = ScreenState.GAME_OVER
             bird.reset()
             time.sleep(1)
             break
+
+def game_over():
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                screen.state = ScreenState.PLAY
+            elif event.key == pygame.K_b:
+                screen.state = ScreenState.BIRD_SETTINGS
+            elif event.key == pygame.K_f:
+                screen.state = ScreenState.BACKGROUND_SETTINGS
+            elif event.key == pygame.K_s:
+                screen.state = ScreenState.COLUMN_SETTINGS
+    screen.blit(GAME_OVER_LAYOUT, (0, 0))
+    pygame.time.Clock().tick(10)
+    frame_group.draw(screen.screen)
 
 if __name__ == "__main__":
     pygame.init()
@@ -234,6 +252,8 @@ if __name__ == "__main__":
             bird_settings_screen()
         elif screen.state == ScreenState.PLAY:
             run_game()
+        elif screen.state == ScreenState.GAME_OVER:
+            game_over()
           
 
         pygame.display.update()
