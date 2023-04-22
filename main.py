@@ -75,7 +75,7 @@ class Bird(pygame.sprite.Sprite):
         self.image = self.current_bird[self.current_image]
     
     def jump(self):
-        self.fall = -25
+        self.fall = -27
 
     def update(self):
         self.fly()
@@ -97,22 +97,29 @@ class Barrier(pygame.sprite.Sprite):
         self.current_barrier_idx = 0
         self.image = self.barriers[self.current_barrier_idx]
         self.mask = pygame.mask.from_surface(self.image)
-        self.rect = self.image.get_rect()
-        self.set_position(settings.WINDOW_WIDTH + 100, -254)
+        self.set_position(settings.WINDOW_WIDTH, -254)
 
     def change_barrier_right(self):
         self.current_barrier_idx = (self.current_barrier_idx + 1) % len(self.barriers)
+        print(self.current_barrier_idx)
+        self.image = self.barriers[self.current_barrier_idx]
+        self.mask = pygame.mask.from_surface(self.image)
 
     def change_barrier_left(self):
         self.current_barrier_idx = (self.current_barrier_idx - 1) % len(self.barriers)
+        self.image = self.barriers[self.current_barrier_idx]
+        self.mask = pygame.mask.from_surface(self.image)
 
     def set_position(self, x, y):
         self.rect = self.image.get_rect()
         self.rect[0] = x
         self.rect[1] = y
 
+    def reset(self):
+        self.set_position(settings.WINDOW_WIDTH, -254)
+
     def update(self):
-        self.rect[0] -= 20
+        self.rect[0] -= 30
 
 class Background():
     def __init__(self):
@@ -234,7 +241,7 @@ def barrier_settings_screen():
 
 def run_game():
     while True:
-        pygame.time.Clock().tick(20)
+        pygame.time.Clock().tick(23)
         screen.blit(background.get_image(), (0, 0))
 
         for event in pygame.event.get():
@@ -244,10 +251,8 @@ def run_game():
                 if event.key == pygame.K_SPACE:
                     bird.jump()
 
-        if barrier_group.sprites()[0].rect[0] < -300:
-            # barrier_group.remove(barrier_group.sprites()[0])
-            # barrier_group.add(barrier)
-            barrier.set_position(settings.WINDOW_WIDTH + 100, -254)
+        if barrier_group.sprites()[0].rect[0] + barrier_group.sprites()[0].image.get_width() < 0:
+            barrier_group.sprites()[0].set_position(settings.WINDOW_WIDTH, -254)
 
         bird_group.update()
         barrier_group.update()
@@ -260,6 +265,7 @@ def run_game():
         if pygame.sprite.groupcollide(bird_group, frame_group, False, False, pygame.sprite.collide_mask):
             screen.state = ScreenState.GAME_OVER
             bird.reset()
+            barrier.reset()
             time.sleep(1)
             break
 
@@ -297,7 +303,6 @@ if __name__ == "__main__":
     barrier_group.add(barrier)
 
     background = Background()
-    barrier = Barrier()
     
     pygame.display.set_caption('Flappy Bird')
 
