@@ -87,15 +87,18 @@ class Bird(pygame.sprite.Sprite):
         self.fall = 0
 
 class Barrier(pygame.sprite.Sprite):
-    def __init__(self, inverted, xpos, ysize):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
         self.barriers = []
         for i in range(2):
-            self.barriers.append([
+            self.barriers.append(
                 pygame.image.load(f'assets/barriers/barrier-{i}.png').convert_alpha(),
-            ])
+            )
         self.current_barrier_idx = 0
         self.image = self.barriers[self.current_barrier_idx]
         self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
+        self.set_position(settings.WINDOW_WIDTH + 100, -254)
 
     def change_barrier_right(self):
         self.current_background = (self.current_background + 1) % len(self.barriers)
@@ -103,6 +106,13 @@ class Barrier(pygame.sprite.Sprite):
     def change_barrier_left(self):
         self.current_background = (self.current_background - 1) % len(self.barriers)
 
+    def set_position(self, x, y):
+        self.rect = self.image.get_rect()
+        self.rect[0] = x
+        self.rect[1] = y
+
+    def update(self):
+        self.rect[0] -= 20
 
 class Background():
     def __init__(self):
@@ -215,9 +225,17 @@ def run_game():
                 if event.key == pygame.K_SPACE:
                     bird.jump()
 
+        if barrier_group.sprites()[0].rect[0] < -300:
+            # barrier_group.remove(barrier_group.sprites()[0])
+            # barrier_group.add(barrier)
+            barrier.set_position(settings.WINDOW_WIDTH + 100, -254)
+
         bird_group.update()
+        barrier_group.update()
+
         bird_group.draw(screen.screen)
         frame_group.draw(screen.screen)
+        barrier_group.draw(screen.screen)
         pygame.display.update()
 
         if pygame.sprite.groupcollide(bird_group, frame_group, False, False, pygame.sprite.collide_mask):
@@ -254,6 +272,10 @@ if __name__ == "__main__":
     frame = Frame()
     frame_group = pygame.sprite.Group()
     frame_group.add(frame)
+
+    barrier = Barrier()
+    barrier_group = pygame.sprite.Group()
+    barrier_group.add(barrier)
 
     background = Background()
     
