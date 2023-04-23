@@ -1,6 +1,7 @@
 import os
 import pygame
 import time
+import random
 
 from enum import Enum
 
@@ -97,11 +98,10 @@ class Barrier(pygame.sprite.Sprite):
         self.current_barrier_idx = 0
         self.image = self.barriers[self.current_barrier_idx]
         self.mask = pygame.mask.from_surface(self.image)
-        self.set_position(settings.WINDOW_WIDTH, -254)
+        self.set_position(settings.WINDOW_WIDTH, -250)
 
     def change_barrier_right(self):
         self.current_barrier_idx = (self.current_barrier_idx + 1) % len(self.barriers)
-        print(self.current_barrier_idx)
         self.image = self.barriers[self.current_barrier_idx]
         self.mask = pygame.mask.from_surface(self.image)
 
@@ -252,7 +252,7 @@ def run_game():
                     bird.jump()
 
         if barrier_group.sprites()[0].rect[0] + barrier_group.sprites()[0].image.get_width() < 0:
-            barrier_group.sprites()[0].set_position(settings.WINDOW_WIDTH, -254)
+            barrier_group.sprites()[0].set_position(settings.WINDOW_WIDTH, random.randint(-500, 0))
 
         bird_group.update()
         barrier_group.update()
@@ -262,7 +262,8 @@ def run_game():
         barrier_group.draw(screen.screen)
         pygame.display.update()
 
-        if pygame.sprite.groupcollide(bird_group, frame_group, False, False, pygame.sprite.collide_mask):
+        if pygame.sprite.groupcollide(bird_group, frame_group, False, False, pygame.sprite.collide_mask) or\
+           pygame.sprite.groupcollide(bird_group, barrier_group, False, False, pygame.sprite.collide_mask):
             screen.state = ScreenState.GAME_OVER
             bird.reset()
             barrier.reset()
