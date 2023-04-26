@@ -167,7 +167,7 @@ class Score():
         self.rect.append(settings.WINDOW_WIDTH - self.offset - self.images[0].get_width())
         self.rect.append(10)
     
-    def encrease(self):
+    def increase(self):
         self.score += 1
         self.images.clear()
         for num in str(self.score):
@@ -322,7 +322,7 @@ def run_game():
 
         if not passed and bird_pos >= barrier_pos:
             passed = True
-            score.encrease()
+            score.increase()
         
         score.update(screen)
 
