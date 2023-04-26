@@ -156,6 +156,46 @@ class Frame(pygame.sprite.Sprite):
         self.rect[0] = 0
         self.rect[1] = 0
 
+class Score():
+    def __init__(self):
+        self.offset = -10
+        self.lil_nums = [pygame.image.load(f'assets/numbers/{i}-little.png') for i in range(10)]
+        self.big_nums = [pygame.image.load(f'assets/numbers/{i}-big.png') for i in range(10)]
+        self.score = 0
+        self.images = [self.lil_nums[0]]
+        self.rect = []
+        self.rect.append(settings.WINDOW_WIDTH - self.offset - self.images[0].get_width())
+        self.rect.append(10)
+    
+    def increase(self):
+        self.score += 1
+        self.images.clear()
+        for num in str(self.score):
+            self.images.append(self.lil_nums[int(num)])
+    
+    def reset(self):
+        self.score = 0
+        self.images = [self.lil_nums[0]]
+    
+    def update(self, screen: Screen):
+        cur_offset = 0
+        for image in self.images[::-1]:
+            cur_offset += image.get_width()
+            screen.blit(image, [self.rect[0] - cur_offset, self.rect[1]])
+    
+    def show(self, screen: Screen):
+        offset_y = settings.WINDOW_HEIGHT // 2 - 20
+        width = 0
+        images = []
+        for num in str(self.score):
+            img = self.big_nums[int(num)]
+            width += img.get_width() + 2
+            images.append(img)
+        cur_offset_x = settings.WINDOW_WIDTH // 2 - width // 2
+        for image in images:
+            screen.blit(image, [cur_offset_x, offset_y])
+            cur_offset_x += image.get_width() + 2
+
 def welcome_screen():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -240,9 +280,12 @@ def barrier_settings_screen():
     )
 
 def run_game():
+    score.reset()
+    passed = False
     while True:
         pygame.time.Clock().tick(23)
         screen.blit(background.get_image(), (0, 0))
+        score.update(screen)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -252,6 +295,7 @@ def run_game():
                     bird.jump()
 
         if barrier_group.sprites()[0].rect[0] + barrier_group.sprites()[0].image.get_width() < 0:
+            passed = False
             barrier_group.sprites()[0].set_position(settings.WINDOW_WIDTH, random.randint(-500, 0))
 
         bird_group.update()
@@ -270,6 +314,18 @@ def run_game():
             time.sleep(1)
             break
 
+        bird_pos = bird_group.sprites()[0].rect[0] + bird_group.sprites()[0].image.get_width() // 2
+        barrier_pos =  (
+            barrier_group.sprites()[0].rect[0] +
+            barrier_group.sprites()[0].image.get_width() // 2
+        )
+
+        if not passed and bird_pos >= barrier_pos:
+            passed = True
+            score.increase()
+        
+        score.update(screen)
+
 def game_over():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -284,12 +340,14 @@ def game_over():
             elif event.key == pygame.K_s:
                 screen.state = ScreenState.BARRIER_SETTINGS
     screen.blit(GAME_OVER_LAYOUT, (0, 0))
+    score.show(screen)
     pygame.time.Clock().tick(10)
     frame_group.draw(screen.screen)
 
 if __name__ == "__main__":
     pygame.init()
     screen = Screen()
+    score = Score()
     
     bird = Bird()
     bird_group = pygame.sprite.Group()
@@ -321,7 +379,6 @@ if __name__ == "__main__":
             run_game()
         elif screen.state == ScreenState.GAME_OVER:
             game_over()
-          
 
         pygame.display.update()
 
