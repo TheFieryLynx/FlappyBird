@@ -98,7 +98,7 @@ class Barrier(pygame.sprite.Sprite):
         self.current_barrier_idx = 0
         self.image = self.barriers[self.current_barrier_idx]
         self.mask = pygame.mask.from_surface(self.image)
-        self.set_position(settings.WINDOW_WIDTH, -250)
+        self.set_position(-100, -250)
 
     def change_barrier_right(self):
         self.current_barrier_idx = (self.current_barrier_idx + 1) % len(self.barriers)
@@ -114,12 +114,46 @@ class Barrier(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect[0] = x
         self.rect[1] = y
+    
+    def get_center_position(self):
+        return (
+            self.rect[0] + self.image.get_width() // 2,
+            self.rect[1] + self.image.get_height() // 2) 
 
     def reset(self):
-        self.set_position(settings.WINDOW_WIDTH, -254)
+        self.set_position(-100, -254)
 
     def update(self):
-        self.rect[0] -= 30
+        self.rect[0] -= settings.BARRIER_SPEED
+
+class Coin(pygame.sprite.Sprite):
+    SIZE = 32
+
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.STATES = 5
+
+        self.coins = [
+            pygame.image.load(f'assets/coins/coin-{i}-big.png').convert_alpha()
+            for i in range(self.STATES)]
+        self.cur_coin_idx = 0
+        self.image = self.coins[self.cur_coin_idx]
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
+        self.reset()
+
+    def set_position(self, x, y):
+        self.rect[0] = x
+        self.rect[1] = y
+    
+    def update(self):
+        self.cur_coin_idx = (self.cur_coin_idx + 1) % len(self.coins)
+        self.image = self.coins[self.cur_coin_idx]
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect[0] -= settings.BARRIER_SPEED
+    
+    def reset(self):
+        self.set_position(settings.WINDOW_WIDTH, settings.WINDOW_HEIGHT)
 
 class Background():
     def __init__(self):
@@ -282,6 +316,7 @@ def barrier_settings_screen():
 def run_game():
     score.reset()
     passed = False
+    new_coin_time = True
     while True:
         pygame.time.Clock().tick(23)
         screen.blit(background.get_image(), (0, 0))
@@ -297,13 +332,32 @@ def run_game():
         if barrier_group.sprites()[0].rect[0] + barrier_group.sprites()[0].image.get_width() < 0:
             passed = False
             barrier_group.sprites()[0].set_position(settings.WINDOW_WIDTH, random.randint(-500, 0))
+            new_coin = Coin()
+            pos = barrier.get_center_position()
+            pos = (
+                pos[0] - new_coin.image.get_width() // 2,
+                pos[1] - new_coin.image.get_height() // 2
+            )
+            new_coin.set_position(*pos)
+            coin_group.add(new_coin)
+            new_coin_time = True
+        
+        if (new_coin_time and
+            barrier.rect[0] + barrier.image.get_width() - Coin.SIZE // 2 <= settings.WINDOW_WIDTH // 2):
+            new_coin = Coin()
+            pos = (settings.WINDOW_WIDTH, random.randint(100, 800))
+            new_coin.set_position(*pos)
+            coin_group.add(new_coin)
+            new_coin_time = False
 
         bird_group.update()
         barrier_group.update()
+        coin_group.update()
 
         bird_group.draw(screen.screen)
         frame_group.draw(screen.screen)
         barrier_group.draw(screen.screen)
+        coin_group.draw(screen.screen)
         pygame.display.update()
 
         if pygame.sprite.groupcollide(bird_group, frame_group, False, False, pygame.sprite.collide_mask) or\
@@ -313,6 +367,10 @@ def run_game():
             barrier.reset()
             time.sleep(1)
             break
+
+        pygame.sprite.groupcollide(bird_group, coin_group, False, True, pygame.sprite.collide_mask)
+        # if pygame.sprite.groupcollide(bird_group, coin_group, False, True, pygame.sprite.collide_mask):
+        #     coin.reset()
 
         bird_pos = bird_group.sprites()[0].rect[0] + bird_group.sprites()[0].image.get_width() // 2
         barrier_pos =  (
@@ -340,6 +398,7 @@ def game_over():
             elif event.key == pygame.K_s:
                 screen.state = ScreenState.BARRIER_SETTINGS
     screen.blit(GAME_OVER_LAYOUT, (0, 0))
+    coin_group.empty()
     score.show(screen)
     pygame.time.Clock().tick(10)
     frame_group.draw(screen.screen)
@@ -360,6 +419,10 @@ if __name__ == "__main__":
     barrier = Barrier()
     barrier_group = pygame.sprite.Group()
     barrier_group.add(barrier)
+
+    # coin = Coin()
+    coin_group = pygame.sprite.Group()
+    # coin_group.add(coin)
 
     background = Background()
     
