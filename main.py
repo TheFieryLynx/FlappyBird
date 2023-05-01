@@ -190,6 +190,34 @@ class Frame(pygame.sprite.Sprite):
         self.rect[0] = 0
         self.rect[1] = 0
 
+class CoinScore():
+    def __init__(self):
+        self.offset = 10
+        self.coin = pygame.image.load(f'assets/coins/coin-0-big.png').convert_alpha()
+        self.lil_nums = [pygame.image.load(f'assets/numbers/{i}-little.png') for i in range(10)]
+        self.score = 0
+        self.images = [self.lil_nums[0]]
+        self.rect = []
+        self.rect.append(self.offset)
+        self.rect.append(10)
+    
+    def increase(self):
+        self.score += 1
+        self.images.clear()
+        for num in str(self.score):
+            self.images.append(self.lil_nums[int(num)])
+    
+    def reset(self):
+        self.score = 0
+        self.images = [self.lil_nums[0]]
+    
+    def update(self, screen: Screen):
+        screen.blit(self.coin, self.rect)
+        cur_offset = self.coin.get_width()
+        for image in self.images:
+            screen.blit(image, [self.rect[0] + cur_offset, self.rect[1]])
+            cur_offset += image.get_width()
+
 class Score():
     def __init__(self):
         self.offset = -10
@@ -315,12 +343,12 @@ def barrier_settings_screen():
 
 def run_game():
     score.reset()
+    score.update(screen)
     passed = False
     new_coin_time = True
     while True:
         pygame.time.Clock().tick(23)
         screen.blit(background.get_image(), (0, 0))
-        score.update(screen)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -358,7 +386,6 @@ def run_game():
         frame_group.draw(screen.screen)
         barrier_group.draw(screen.screen)
         coin_group.draw(screen.screen)
-        pygame.display.update()
 
         if pygame.sprite.groupcollide(bird_group, frame_group, False, False, pygame.sprite.collide_mask) or\
            pygame.sprite.groupcollide(bird_group, barrier_group, False, False, pygame.sprite.collide_mask):
@@ -368,9 +395,8 @@ def run_game():
             time.sleep(1)
             break
 
-        pygame.sprite.groupcollide(bird_group, coin_group, False, True, pygame.sprite.collide_mask)
-        # if pygame.sprite.groupcollide(bird_group, coin_group, False, True, pygame.sprite.collide_mask):
-        #     coin.reset()
+        if pygame.sprite.groupcollide(bird_group, coin_group, False, True, pygame.sprite.collide_mask):            coin_score.increase()
+        coin_score.update(screen)
 
         bird_pos = bird_group.sprites()[0].rect[0] + bird_group.sprites()[0].image.get_width() // 2
         barrier_pos =  (
@@ -383,6 +409,7 @@ def run_game():
             score.increase()
         
         score.update(screen)
+        pygame.display.update()
 
 def game_over():
     for event in pygame.event.get():
@@ -407,6 +434,7 @@ if __name__ == "__main__":
     pygame.init()
     screen = Screen()
     score = Score()
+    coin_score = CoinScore()
     
     bird = Bird()
     bird_group = pygame.sprite.Group()
@@ -420,9 +448,7 @@ if __name__ == "__main__":
     barrier_group = pygame.sprite.Group()
     barrier_group.add(barrier)
 
-    # coin = Coin()
     coin_group = pygame.sprite.Group()
-    # coin_group.add(coin)
 
     background = Background()
     
@@ -430,6 +456,7 @@ if __name__ == "__main__":
 
     while True:
         screen.blit(background.get_image(), (0, 0))
+        coin_score.update(screen)
         if screen.state == ScreenState.MENU:
             welcome_screen()
         elif screen.state == ScreenState.BACKGROUND_SETTINGS:
