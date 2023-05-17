@@ -1,21 +1,21 @@
 import pygame
 import time
 import random
+from enum import Enum
 
 # local imports
 import settings
-from states import ScreenState
 
-MENU_LAYOUT = pygame.image.load('assets/layouts/menu-layout.png')
-BACKGROUND_SETTINGS_LAYOUT = pygame.image.load(
-    'assets/layouts/background-settings-layout.png')
-BIRD_SETTINGS_LAYOUT = pygame.image.load(
-    'assets/layouts/bird-settings-layout.png')
-BARRIER_SETTINGS_LAYOUT = pygame.image.load(
-    'assets/layouts/barrier-settings-layout.png')
-GAME_OVER_LAYOUT = pygame.image.load('assets/layouts/game-over-layout.png')
-VERTICAL_FRAME = pygame.image.load('assets/vertical-frame.png')
-HORIZONTAL_FRAME = pygame.image.load('assets/horizontal-frame.png')
+
+class ScreenState(Enum):
+    """Enum representing all possible game screen states."""
+
+    MENU = 0
+    BACKGROUND_SETTINGS = 1
+    BIRD_SETTINGS = 2
+    BARRIER_SETTINGS = 3
+    GAME_OVER = 4
+    PLAY = 5
 
 
 class Bird(pygame.sprite.Sprite):
@@ -292,7 +292,11 @@ class CoinScore():
         self.images = [self.lil_nums[0]]
 
     def update(self, screen: Screen):
-        """Display current coin score on the screen."""
+        """Display current coin score on the screen.
+
+        :param screen: Game's screen.
+        :type screen: Screen
+        """
         screen.blit(self.coin, self.rect)
         cur_offset = self.coin.get_width() + 5
         for image in self.images:
@@ -327,14 +331,22 @@ class Score():
         self.images = [self.lil_nums[0]]
 
     def update(self, screen: Screen):
-        """Display current score on the screen."""
+        """Display current score on the screen.
+
+        :param screen: Game's screen.
+        :type screen: Screen
+        """
         cur_offset = 0
         for image in self.images[::-1]:
             cur_offset += image.get_width()
             screen.blit(image, [self.rect[0] - cur_offset, self.rect[1]])
 
     def show(self, screen: Screen):
-        """Display final score on the screen."""
+        """Display final score on the screen.
+
+        :param screen: Game's screen.
+        :type screen: Screen
+        """
         offset_y = settings.WINDOW_HEIGHT // 2 - 20
         width = 0
         images = []
@@ -540,6 +552,14 @@ def game_over():
 
 
 if __name__ == "__main__":
+    MENU_LAYOUT = pygame.image.load('assets/layouts/menu-layout.png')
+    BACKGROUND_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/background-settings-layout.png')
+    BIRD_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/bird-settings-layout.png')
+    BARRIER_SETTINGS_LAYOUT = pygame.image.load('assets/layouts/barrier-settings-layout.png')
+    GAME_OVER_LAYOUT = pygame.image.load('assets/layouts/game-over-layout.png')
+    VERTICAL_FRAME = pygame.image.load('assets/vertical-frame.png')
+    HORIZONTAL_FRAME = pygame.image.load('assets/horizontal-frame.png')
+
     pygame.init()
     screen = Screen()
     score = Score()
