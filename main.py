@@ -304,7 +304,6 @@ def run_game():
         bird_group.draw(screen.screen)
         frame_group.draw(screen.screen)
         barrier_group.draw(screen.screen)
-        pygame.display.update()
 
         if pygame.sprite.groupcollide(bird_group, frame_group, False, False, pygame.sprite.collide_mask) or\
            pygame.sprite.groupcollide(bird_group, barrier_group, False, False, pygame.sprite.collide_mask):
@@ -325,6 +324,7 @@ def run_game():
             score.increase()
         
         score.update(screen)
+        pygame.display.update()
 
 def game_over():
     for event in pygame.event.get():
