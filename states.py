@@ -2,6 +2,8 @@ from enum import Enum
 
 
 class ScreenState(Enum):
+    """Enum representing all possible game screen states."""
+
     MENU = 0
     BACKGROUND_SETTINGS = 1
     BIRD_SETTINGS = 2
