@@ -387,6 +387,7 @@ def run_game():
         barrier_group.draw(screen.screen)
         coin_group.draw(screen.screen)
 
+
         if pygame.sprite.groupcollide(bird_group, frame_group, False, False, pygame.sprite.collide_mask) or\
            pygame.sprite.groupcollide(bird_group, barrier_group, False, False, pygame.sprite.collide_mask):
             screen.state = ScreenState.GAME_OVER
