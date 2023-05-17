@@ -2,8 +2,6 @@ import pygame
 import time
 import random
 
-from enum import Enum
-
 # local imports
 import settings
 from states import ScreenState
@@ -210,8 +208,7 @@ class Frame(pygame.sprite.Sprite):
 class CoinScore():
     def __init__(self):
         self.offset = 10
-        self.coin = pygame.image.load(
-            f'assets/coins/coin-0-big.png').convert_alpha()
+        self.coin = pygame.image.load('assets/coins/coin-0-big.png').convert_alpha()
         self.lil_nums = [pygame.image.load(
             f'assets/numbers/{i}-little.png') for i in range(10)]
         self.score = 0
