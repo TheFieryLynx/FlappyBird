@@ -98,7 +98,7 @@ class Barrier(pygame.sprite.Sprite):
         self.current_barrier_idx = 0
         self.image = self.barriers[self.current_barrier_idx]
         self.mask = pygame.mask.from_surface(self.image)
-        self.set_position(settings.WINDOW_WIDTH, -250)
+        self.set_position(-100, -250)
 
     def change_barrier_right(self):
         self.current_barrier_idx = (self.current_barrier_idx + 1) % len(self.barriers)
@@ -114,12 +114,46 @@ class Barrier(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect[0] = x
         self.rect[1] = y
+    
+    def get_center_position(self):
+        return (
+            self.rect[0] + self.image.get_width() // 2,
+            self.rect[1] + self.image.get_height() // 2) 
 
     def reset(self):
-        self.set_position(settings.WINDOW_WIDTH, -254)
+        self.set_position(-100, -254)
 
     def update(self):
-        self.rect[0] -= 30
+        self.rect[0] -= settings.BARRIER_SPEED
+
+class Coin(pygame.sprite.Sprite):
+    SIZE = 32
+
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.STATES = 5
+
+        self.coins = [
+            pygame.image.load(f'assets/coins/coin-{i}-big.png').convert_alpha()
+            for i in range(self.STATES)]
+        self.cur_coin_idx = 0
+        self.image = self.coins[self.cur_coin_idx]
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
+        self.reset()
+
+    def set_position(self, x, y):
+        self.rect[0] = x
+        self.rect[1] = y
+    
+    def update(self):
+        self.cur_coin_idx = (self.cur_coin_idx + 1) % len(self.coins)
+        self.image = self.coins[self.cur_coin_idx]
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect[0] -= settings.BARRIER_SPEED
+    
+    def reset(self):
+        self.set_position(settings.WINDOW_WIDTH, settings.WINDOW_HEIGHT)
 
 class Background():
     def __init__(self):
@@ -155,6 +189,34 @@ class Frame(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect[0] = 0
         self.rect[1] = 0
+
+class CoinScore():
+    def __init__(self):
+        self.offset = 10
+        self.coin = pygame.image.load(f'assets/coins/coin-0-big.png').convert_alpha()
+        self.lil_nums = [pygame.image.load(f'assets/numbers/{i}-little.png') for i in range(10)]
+        self.score = 0
+        self.images = [self.lil_nums[0]]
+        self.rect = []
+        self.rect.append(self.offset)
+        self.rect.append(10)
+    
+    def increase(self):
+        self.score += 1
+        self.images.clear()
+        for num in str(self.score):
+            self.images.append(self.lil_nums[int(num)])
+    
+    def reset(self):
+        self.score = 0
+        self.images = [self.lil_nums[0]]
+    
+    def update(self, screen: Screen):
+        screen.blit(self.coin, self.rect)
+        cur_offset = self.coin.get_width()
+        for image in self.images:
+            screen.blit(image, [self.rect[0] + cur_offset, self.rect[1]])
+            cur_offset += image.get_width()
 
 class Score():
     def __init__(self):
@@ -281,11 +343,12 @@ def barrier_settings_screen():
 
 def run_game():
     score.reset()
+    score.update(screen)
     passed = False
+    new_coin_time = True
     while True:
         pygame.time.Clock().tick(23)
         screen.blit(background.get_image(), (0, 0))
-        score.update(screen)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -297,13 +360,33 @@ def run_game():
         if barrier_group.sprites()[0].rect[0] + barrier_group.sprites()[0].image.get_width() < 0:
             passed = False
             barrier_group.sprites()[0].set_position(settings.WINDOW_WIDTH, random.randint(-500, 0))
+            new_coin = Coin()
+            pos = barrier.get_center_position()
+            pos = (
+                pos[0] - new_coin.image.get_width() // 2,
+                pos[1] - new_coin.image.get_height() // 2
+            )
+            new_coin.set_position(*pos)
+            coin_group.add(new_coin)
+            new_coin_time = True
+        
+        if (new_coin_time and
+            barrier.rect[0] + barrier.image.get_width() - Coin.SIZE // 2 <= settings.WINDOW_WIDTH // 2):
+            new_coin = Coin()
+            pos = (settings.WINDOW_WIDTH, random.randint(100, 800))
+            new_coin.set_position(*pos)
+            coin_group.add(new_coin)
+            new_coin_time = False
 
         bird_group.update()
         barrier_group.update()
+        coin_group.update()
 
         bird_group.draw(screen.screen)
         frame_group.draw(screen.screen)
         barrier_group.draw(screen.screen)
+        coin_group.draw(screen.screen)
+
 
         if pygame.sprite.groupcollide(bird_group, frame_group, False, False, pygame.sprite.collide_mask) or\
            pygame.sprite.groupcollide(bird_group, barrier_group, False, False, pygame.sprite.collide_mask):
@@ -312,6 +395,9 @@ def run_game():
             barrier.reset()
             time.sleep(1)
             break
+
+        if pygame.sprite.groupcollide(bird_group, coin_group, False, True, pygame.sprite.collide_mask):            coin_score.increase()
+        coin_score.update(screen)
 
         bird_pos = bird_group.sprites()[0].rect[0] + bird_group.sprites()[0].image.get_width() // 2
         barrier_pos =  (
@@ -340,6 +426,7 @@ def game_over():
             elif event.key == pygame.K_s:
                 screen.state = ScreenState.BARRIER_SETTINGS
     screen.blit(GAME_OVER_LAYOUT, (0, 0))
+    coin_group.empty()
     score.show(screen)
     pygame.time.Clock().tick(10)
     frame_group.draw(screen.screen)
@@ -348,6 +435,7 @@ if __name__ == "__main__":
     pygame.init()
     screen = Screen()
     score = Score()
+    coin_score = CoinScore()
     
     bird = Bird()
     bird_group = pygame.sprite.Group()
@@ -361,12 +449,15 @@ if __name__ == "__main__":
     barrier_group = pygame.sprite.Group()
     barrier_group.add(barrier)
 
+    coin_group = pygame.sprite.Group()
+
     background = Background()
     
     pygame.display.set_caption('Flappy Bird')
 
     while True:
         screen.blit(background.get_image(), (0, 0))
+        coin_score.update(screen)
         if screen.state == ScreenState.MENU:
             welcome_screen()
         elif screen.state == ScreenState.BACKGROUND_SETTINGS:
