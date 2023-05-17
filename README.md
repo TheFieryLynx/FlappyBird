@@ -43,3 +43,7 @@
 ### Окончание игры
 
 ![](./images/game-over.png)
+
+# Документация
+
+https://github.com/TheFieryLynx/FlappyBird/wiki/Documentation
