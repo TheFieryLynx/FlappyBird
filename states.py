@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ScreenState(Enum):
     MENU = 0
     BACKGROUND_SETTINGS = 1

@@ -1,0 +1,3 @@
+[flake8]
+exclude = __pycache__*, assets*, env*, images*
+max-line-length = 110
