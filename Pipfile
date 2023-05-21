@@ -9,6 +9,7 @@ pygame = "*"
 [dev-packages]
 flake8 = "*"
 pydocstyle = "*"
+sphinx = "*"
 
 [requires]
 python_version = "3.10"

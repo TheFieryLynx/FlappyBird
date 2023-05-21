@@ -2,9 +2,13 @@
 WINDOW_HEIGHT = 900
 WINDOW_WIDTH = 600
 
-# bird position
+# bird initial position
 BIRD_INIT_X = 110
 BIRD_INIT_Y = 420
+
+# barrier initial position
+BARRIER_INIT_X = -100
+BARRIER_INIT_Y = -254
 
 BACKGROUND_SETTING_X = 86
 BACKGROUND_SETTING_Y = 383
