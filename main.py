@@ -153,7 +153,7 @@ class Barrier(pygame.sprite.Sprite):
         self.set_position(settings.BARRIER_INIT_X, settings.BARRIER_INIT_Y)
 
     def update(self):
-        """Imitate the bird moving towards the bird."""
+        """Imitate the barrier moving towards the bird."""
         self.rect[0] -= settings.BARRIER_SPEED
 
 

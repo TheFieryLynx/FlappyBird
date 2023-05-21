@@ -1,0 +1,270 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Andrew Birukov, Aleksandra Korabulina, Diana Rudenko
+# This file is distributed under the same license as the Flappy Bird
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Flappy Bird \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-05-21 14:29+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ru\n"
+"Language-Team: ru <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../index.rst:9
+msgid "Contents:"
+msgstr ""
+
+#: ../../index.rst:7
+msgid "Welcome to Flappy Bird's documentation!"
+msgstr "Добро пожаловать в документацию Flappy Bird!"
+
+#: main.Background:1 of
+msgid "Class representing and controlling the game's background."
+msgstr "Класс, представляющий фон игры и управляющий им."
+
+#: main.Background.change_background_left:1 of
+msgid ""
+"Change the chosen baackground to the left side background on the screen "
+"(cyclically)."
+msgstr "Изменяет выбранный фон влево (циклически)."
+
+#: main.Background.change_background_right:1 of
+msgid ""
+"Change the chosen baackground to the right side background on the screen "
+"(cyclically)."
+msgstr "Изменяет выбранный фон вправо (циклически)."
+
+#: main.Background.get_image:1 of
+msgid "Return current background image."
+msgstr "Возвращает текущее фоновое изображение."
+
+#: main.Barrier:1 of
+msgid "Class representing and controlling a barrier's sprite in the game."
+msgstr "Класс, управляющий спрайтами барьеров в игре."
+
+#: main.Barrier.change_barrier_left:1 of
+msgid ""
+"Change the chosen barrier to the left side barrier on the screen "
+"(cyclically)."
+msgstr ""
+
+#: main.Barrier.change_barrier_right:1 of
+msgid ""
+"Change the chosen barrier to the right side barrier on the screen "
+"(cyclically)."
+msgstr "Изменяет выбранный барьер вправо (циклически)."
+
+#: main.Barrier.get_center_position:1 of
+msgid "Return the barrier's current center coordinates."
+msgstr "Возвращает текущие координаты центра барьеров."
+
+#: main.Barrier.reset:1 of
+msgid "Reset the barrier's position to initial."
+msgstr "Возвращает положение барьера в исходное."
+
+#: main.Barrier.set_position:1 of
+msgid "Set barrier's coordinates."
+msgstr "Установка координатов барьеров."
+
+#: main.Barrier.set_position main.Coin.set_position main.CoinScore.update
+#: main.Score.show main.Score.update main.Screen.blit of
+msgid "Parameters"
+msgstr "Параметры"
+
+#: main.Barrier.set_position:3 main.Coin.set_position:3 of
+msgid "Horizontal coordinate value to set."
+msgstr "Значение координаты по горизонтали."
+
+#: main.Barrier.set_position:5 main.Coin.set_position:5 of
+msgid "Vertical coordinate value to set."
+msgstr "Значение координаты по вертикали"
+
+#: main.Barrier.update:1 of
+msgid "Imitate the bird moving towards the bird."
+msgstr "Имитирует движение птицы навстречу птице."
+
+#: main.Bird:1 of
+msgid "Class representing and controlling a bird's sprite in the game."
+msgstr "Класс, управляющий спрайтами птицы в игре."
+
+#: main.Bird.change_bird_down:1 of
+msgid "Change the chosen bird to the bird below on the screen (cyclically)."
+msgstr "Изменяет выбранную птицу вниз (циклически)."
+
+#: main.Bird.change_bird_left:1 of
+msgid "Change the chosen bird to the left side bird on the screen (cyclically)."
+msgstr "Изменяет выбранную птицу влево (циклически)."
+
+#: main.Bird.change_bird_right:1 of
+msgid "Change the chosen bird to the right side bird on the screen (cyclically)."
+msgstr "Изменяет выбранную птицу вправо (циклически)."
+
+#: main.Bird.change_bird_up:1 of
+msgid "Change the chosen bird to the bird up on the screen (cyclically)."
+msgstr "Изменяет выбранную птицу вверх (циклически)."
+
+#: main.Bird.fly:1 of
+msgid ""
+"Change the bird's picture to a picture depicting the next position of the"
+" bird."
+msgstr "Изменение изображение птицы на следующее"
+
+#: main.Bird.jump:1 of
+msgid "Imitate the bird's jump up."
+msgstr "Имитация прыжка птицы"
+
+#: main.Bird.reset:1 of
+msgid "Reset the bird's position to initial and stop the bird from falling."
+msgstr "Возврат положения птицы в исходное и предотвращение падения птицы."
+
+#: main.Bird.set_position:1 of
+msgid "Set initial bird's coordinates corresponding to settings."
+msgstr "Установка начальных координат птицы в соответствии с настройками."
+
+#: main.Bird.update:1 of
+msgid "Imitate the bird moving forward and falling."
+msgstr "Имитация движения птицы вперед и падение."
+
+#: main.Coin:1 of
+msgid "Class representing and controlling a coin's sprite in the game."
+msgstr "Класс, управляющий спрайтами монеты в игре."
+
+#: main.Coin.reset:1 of
+msgid "Reset the coin's position to initial."
+msgstr "Возврат положения монеты в исходное."
+
+#: main.Coin.set_position:1 of
+msgid "Set coin's coordinates."
+msgstr "Установка координат монеты."
+
+#: main.Coin.update:1 of
+msgid ""
+"Change the coin's to a picture depicting the next position of the coin. "
+"Move the coin towards the bird."
+msgstr ""
+"Замените изображение монетки на следующее. "
+"Переместить монету в сторону птицы."
+
+#: main.CoinScore:1 of
+msgid "Class representing and controlling the player's coin score."
+msgstr "Класс, управляющий подсчетом количества монет в игре."
+
+#: main.CoinScore.increase:1 of
+msgid "Increase the player's coin score by one."
+msgstr "Увеличить количество монет на 1. "
+
+#: main.CoinScore.reset:1 of
+msgid "Reset the player's coin score to zero."
+msgstr "Сбросить счетчик количества монет. "
+
+#: main.CoinScore.update:1 of
+msgid "Display current coin score on the screen."
+msgstr "Отрисовать текущее количество монет на экран. "
+
+#: main.CoinScore.update:3 main.Score.show:3 main.Score.update:3 of
+msgid "Game's screen."
+msgstr "Экран игры. "
+
+#: main.Frame:1 of
+msgid ""
+"Class representing and controlling the game's frame. Frame is a thin line"
+" at the bottom of the screen, which is needed to control the fall of the "
+"bird to the ground."
+msgstr ""
+"Класс, управляющий фреймами игры. "
+"Рамка - это тонкая линия в нижней части экрана, "
+"которая необходима для контроля падением птицы на землю."
+
+#: main.Score:1 of
+msgid "Class representing and controlling the player's score."
+msgstr "Класс, управляющий счетом игрока."
+
+#: main.Score.increase:1 of
+msgid "Increase the player's score by one."
+msgstr "Увеличить счет на 1."
+
+#: main.Score.reset:1 of
+msgid "Reset the player's score to zero."
+msgstr "Сбросить счет игрока."
+
+#: main.Score.show:1 of
+msgid "Display final score on the screen."
+msgstr "Отрисовать финальный счет на экран."
+
+#: main.Score.update:1 of
+msgid "Display current score on the screen."
+msgstr "Отрисовать текущий счет на экран."
+
+#: main.Screen:1 of
+msgid "Class representing and controlling the game's screen."
+msgstr "Класс, управляющий экраном игры."
+
+#: main.Screen.blit:1 of
+msgid "Display an image on the scrren."
+msgstr "Отрисовать изображение на экране."
+
+#: main.Screen.blit:3 of
+msgid "Image to display."
+msgstr "Изображение."
+
+#: main.Screen.blit:5 of
+msgid "Horizontal and vertical screen offset to display the image."
+msgstr "Отступы по вертикали и горизонтали от края экрана."
+
+#: main.ScreenState:1 of
+msgid "Enum representing all possible game screen states."
+msgstr "Enum, содержащий все возможные состояния экрана игры."
+
+#: main.background_settings_screen:1 of
+msgid "Display background settings screen and listen for keydown events."
+msgstr "Отобразить экран настройки фонового изображения."
+
+#: main.barrier_settings_screen:1 of
+msgid "Display barrier settings screen and listen for keydown events."
+msgstr "Отобразить экран настройки изображения барьеров."
+
+#: main.bird_settings_screen:1 of
+msgid "Display bird settings screen and listen for keydown events."
+msgstr "Отобразить экран настройки изображения птицы."
+
+#: main.game_over:1 of
+msgid "Display game over screen and listen for keydown events."
+msgstr "Отобразить экран окончания игры."
+
+#: main.run_game:1 of
+msgid ""
+"Start the game and update every game component on clock tick or keydown "
+"event."
+msgstr "Начать игру и обновлять состояние игры каждый тик."
+
+#: main.welcome_screen:1 of
+msgid "Display game start screen and listen for keydown events."
+msgstr "Отобразить начальный экран."
+
+#: ../../index.rst:20
+msgid "Indices and tables"
+msgstr "Индексы и таблицы"
+
+#: ../../index.rst:22
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../../index.rst:23
+msgid ":ref:`modindex`"
+msgstr ""
+
+#: ../../index.rst:24
+msgid ":ref:`search`"
+msgstr ""
+

@@ -10,6 +10,7 @@ pygame = "*"
 flake8 = "*"
 pydocstyle = "*"
 sphinx = "*"
+sphinx-intl = "*"
 
 [requires]
 python_version = "3.10"
