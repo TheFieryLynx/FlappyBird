@@ -32,14 +32,16 @@ def task_format():
             'verbosity': 2,
             }
 
+
 def task_play():
     """Run game."""
     return {
         'actions': ["python3 main.py"],
     }
 
+
 def task_gitclean():
     """Clean all generated files not tracked by GIT."""
     return {
-            'actions': ['git clean -xdf'],
-           }
+        'actions': ['git clean -xdf'],
+    }
