@@ -90,7 +90,7 @@ msgid "Vertical coordinate value to set."
 msgstr ""
 
 #: main.Barrier.update:1 of
-msgid "Imitate the bird moving towards the bird."
+msgid "Imitate the barrier moving towards the bird."
 msgstr ""
 
 #: main.Bird:1 of
