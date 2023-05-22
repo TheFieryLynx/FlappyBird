@@ -130,4 +130,5 @@ dmypy.json
 
 .DS_Store
 
-doc/_build
+docs/build
+.doit.db
