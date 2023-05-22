@@ -57,7 +57,7 @@ msgstr "Класс, управляющий спрайтами барьеров �
 msgid ""
 "Change the chosen barrier to the left side barrier on the screen "
 "(cyclically)."
-msgstr ""
+msgstr "Изменяет выбранный барьер влево (циклически)."
 
 #: main.Barrier.change_barrier_right:1 of
 msgid ""
@@ -91,7 +91,7 @@ msgid "Vertical coordinate value to set."
 msgstr "Значение координаты по вертикали"
 
 #: main.Barrier.update:1 of
-msgid "Imitate the bird moving towards the bird."
+msgid "Imitate the barrier moving towards the bird."
 msgstr "Имитирует движение птицы навстречу птице."
 
 #: main.Bird:1 of
