@@ -45,3 +45,9 @@ def task_gitclean():
     return {
         'actions': ['git clean -xdf'],
     }
+
+def task_build():
+    """Build wheel."""
+    return {
+        'actions': ['pyproject-build -w'],
+    }

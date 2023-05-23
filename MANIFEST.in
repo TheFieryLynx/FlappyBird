@@ -1,2 +1,2 @@
-recursive-include FlappyBird/ *
+recursive-include FlappyBird/assets *
 include *.png
