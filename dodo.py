@@ -25,9 +25,9 @@ def task_check_style():
 def task_format():
     """Format all .py files."""
     return {'actions': ["""
-                autopep8 --in-place --aggressive --aggressive main.py
+                autopep8 --in-place --aggressive --aggressive FlappyBird/__main__.py
                 autopep8 --in-place --aggressive --aggressive dodo.py
-                autopep8 --in-place --aggressive --aggressive settings.py
+                autopep8 --in-place --aggressive --aggressive FlappyBird/settings.py
                 """],
             'verbosity': 2,
             }
@@ -36,7 +36,7 @@ def task_format():
 def task_play():
     """Run game."""
     return {
-        'actions': ["python3 main.py"],
+        'actions': ["python3 FlappyBird/__init__.py"],
     }
 
 
