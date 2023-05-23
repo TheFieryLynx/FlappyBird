@@ -1,5 +1,6 @@
 from . import *
 
+
 def welcome_screen():
     """Display game start screen and listen for keydown events."""
     for event in pygame.event.get():
@@ -189,7 +190,6 @@ def game_over():
     score.show(screen)
     pygame.time.Clock().tick(10)
     frame_group.draw(screen.screen)
-
 
 
 MENU_LAYOUT = pygame.image.load('assets/layouts/menu-layout.png')
