@@ -5,8 +5,6 @@ from enum import Enum
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../FlappyBird')))
-
 # local imports
 import settings
 
@@ -53,35 +51,31 @@ class Bird(pygame.sprite.Sprite):
 
     def change_bird_right(self):
         """Change the chosen bird to the right side bird on the screen (cyclically)."""
-        if (self.current_bird_idx % 3 != 2):
-            self.current_bird_idx = (self.current_bird_idx + 1) % 9
-            self.current_bird = self.birds[self.current_bird_idx]
-            self.image = self.current_bird[self.current_image]
-            self.mask = pygame.mask.from_surface(self.image)
+        self.current_bird_idx = (self.current_bird_idx // 3) * 3 + (self.current_bird_idx + 1) % 3
+        self.current_bird = self.birds[self.current_bird_idx]
+        self.image = self.current_bird[self.current_image]
+        self.mask = pygame.mask.from_surface(self.image)
 
     def change_bird_left(self):
         """Change the chosen bird to the left side bird on the screen (cyclically)."""
-        if (self.current_bird_idx % 3 != 0):
-            self.current_bird_idx = (self.current_bird_idx - 1) % 9
-            self.current_bird = self.birds[self.current_bird_idx]
-            self.image = self.current_bird[self.current_image]
-            self.mask = pygame.mask.from_surface(self.image)
+        self.current_bird_idx = self.current_bird_idx // 3 * 3 + (self.current_bird_idx - 1) % 3
+        self.current_bird = self.birds[self.current_bird_idx]
+        self.image = self.current_bird[self.current_image]
+        self.mask = pygame.mask.from_surface(self.image)
 
     def change_bird_up(self):
         """Change the chosen bird to the bird up on the screen (cyclically)."""
-        if (self.current_bird_idx // 3 != 0):
-            self.current_bird_idx = (self.current_bird_idx - 3) % 9
-            self.current_bird = self.birds[self.current_bird_idx]
-            self.image = self.current_bird[self.current_image]
-            self.mask = pygame.mask.from_surface(self.image)
+        self.current_bird_idx = (self.current_bird_idx - 3) % 9
+        self.current_bird = self.birds[self.current_bird_idx]
+        self.image = self.current_bird[self.current_image]
+        self.mask = pygame.mask.from_surface(self.image)
 
     def change_bird_down(self):
         """Change the chosen bird to the bird below on the screen (cyclically)."""
-        if (self.current_bird_idx // 3 != 2):
-            self.current_bird_idx = (self.current_bird_idx + 3) % 9
-            self.current_bird = self.birds[self.current_bird_idx]
-            self.image = self.current_bird[self.current_image]
-            self.mask = pygame.mask.from_surface(self.image)
+        self.current_bird_idx = (self.current_bird_idx + 3) % 9
+        self.current_bird = self.birds[self.current_bird_idx]
+        self.image = self.current_bird[self.current_image]
+        self.mask = pygame.mask.from_surface(self.image)
 
     def fly(self):
         """Change the bird's picture to a picture depicting the next position of the bird."""
