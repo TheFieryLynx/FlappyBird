@@ -5,8 +5,6 @@ from enum import Enum
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../FlappyBird')))
-
 # local imports
 import settings
 
