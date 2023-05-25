@@ -10,7 +10,7 @@ def setUpModule():
     FlappyBird.pygame.display.set_mode = MagicMock()
 
 class TestInit(unittest.TestCase):
-    def test_init(self):
+    def test_screen_init(self):
         screen = FlappyBird.Screen()
         FlappyBird.pygame.display.set_mode.assert_called_with((
             FlappyBird.settings.WINDOW_WIDTH,
