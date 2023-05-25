@@ -189,7 +189,7 @@ class Coin(pygame.sprite.Sprite):
         """Change the coin's to a picture depicting the next position of the coin.
         Move the coin towards the bird.
         """
-        self.cur_coin_idx = (self.cur_coin_idx + 1) % len(self.coins)
+        self.cur_coin_idx = (self.cur_coin_idx + 1) % self.STATES
         self.image = self.coins[self.cur_coin_idx]
         self.mask = pygame.mask.from_surface(self.image)
         self.rect[0] -= settings.BARRIER_SPEED

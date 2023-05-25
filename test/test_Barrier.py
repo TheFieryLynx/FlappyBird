@@ -10,7 +10,7 @@ def setUpModule():
     FlappyBird.pygame.image.load().convert_alpha().get_rect = MagicMock(return_value=[0, 0])
 
 class TestInit(unittest.TestCase):
-    def test_init(self):
+    def test_barrier_init(self):
         barrier = FlappyBird.Barrier()
         self.assertGreater(len(barrier.barriers), 0)
         self.assertEqual(barrier.current_barrier_idx, 0)

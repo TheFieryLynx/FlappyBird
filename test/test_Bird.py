@@ -10,7 +10,7 @@ def setUpModule():
     FlappyBird.pygame.image.load().convert_alpha().get_rect = MagicMock(return_value=[0, 0])
 
 class TestInit(unittest.TestCase):
-    def test_init(self):
+    def test_bird_init(self):
         bird = FlappyBird.Bird()
         # some Bird methods works correctly only for 9 birds
         self.assertEqual(len(bird.birds), 9)
