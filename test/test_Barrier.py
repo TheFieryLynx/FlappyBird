@@ -54,7 +54,6 @@ class TestGetCenterPosition(unittest.TestCase):
                          [FlappyBird.settings.BARRIER_INIT_X, FlappyBird.settings.BARRIER_INIT_Y])
         barrier.image.get_width.assert_called_with()
         barrier.image.get_height.assert_called_with()
-        print(center_pos)
         self.assertEqual(center_pos[0], barrier.rect[0] + 50)
         self.assertEqual(center_pos[1], barrier.rect[1] + 50)
 
