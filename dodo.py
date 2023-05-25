@@ -52,3 +52,10 @@ def task_build():
     return {
         'actions': ['pyproject-build -w'],
     }
+
+def task_test():
+    """Test the app."""
+    return {
+        'actions': ['coverage run -m unittest discover -s "test" -v && coverage html'],
+        'verbosity': 2
+    }
