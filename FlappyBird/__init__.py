@@ -112,7 +112,7 @@ class Barrier(pygame.sprite.Sprite):
         self.current_barrier_idx = 0
         self.image = self.barriers[self.current_barrier_idx]
         self.mask = pygame.mask.from_surface(self.image)
-        self.set_position(-100, -250)
+        self.set_position(settings.BARRIER_INIT_X, settings.BARRIER_INIT_Y)
 
     def change_barrier_right(self):
         """Change the chosen barrier to the right side barrier on the screen (cyclically)."""

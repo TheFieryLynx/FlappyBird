@@ -7,9 +7,6 @@ import FlappyBird
 
 def setUpModule():
     FlappyBird.pygame = MagicMock()
-    FlappyBird.pygame.image = MagicMock()
-    FlappyBird.pygame.image.load = MagicMock()
-    FlappyBird.pygame.image.load().convert_alpha = MagicMock()
     FlappyBird.pygame.image.load().convert_alpha().get_rect = MagicMock(return_value=[0, 0])
 
 class TestInit(unittest.TestCase):
