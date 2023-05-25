@@ -36,7 +36,7 @@ def task_format():
 def task_play():
     """Run game."""
     return {
-        'actions': ["cd FlappyBird && python3 __main__.py && cd .."],
+        'actions': ["python3 FlappyBird/__main__.py"],
     }
 
 
