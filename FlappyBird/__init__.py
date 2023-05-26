@@ -31,9 +31,9 @@ class Bird(pygame.sprite.Sprite):
         for i in range(9):
             self.birds.append([
                 pygame.image.load(
-                    f'assets/birds/bird-{i}-up.png').convert_alpha(),
+                    f'FlappyBird/assets/birds/bird-{i}-up.png').convert_alpha(),
                 pygame.image.load(
-                    f'assets/birds/bird-{i}-down.png').convert_alpha()
+                    f'FlappyBird/assets/birds/bird-{i}-down.png').convert_alpha()
             ])
         self.fall = 0
         self.current_image = 0
@@ -107,12 +107,12 @@ class Barrier(pygame.sprite.Sprite):
         self.barriers = []
         for i in range(2):
             self.barriers.append(
-                pygame.image.load(f'assets/barriers/barrier-{i}.png').convert_alpha(),
+                pygame.image.load(f'FlappyBird/assets/barriers/barrier-{i}.png').convert_alpha(),
             )
         self.current_barrier_idx = 0
         self.image = self.barriers[self.current_barrier_idx]
         self.mask = pygame.mask.from_surface(self.image)
-        self.set_position(-100, -250)
+        self.set_position(settings.BARRIER_INIT_X, settings.BARRIER_INIT_Y)
 
     def change_barrier_right(self):
         """Change the chosen barrier to the right side barrier on the screen (cyclically)."""
@@ -166,7 +166,7 @@ class Coin(pygame.sprite.Sprite):
         self.STATES = 5
 
         self.coins = [
-            pygame.image.load(f'assets/coins/coin-{i}-big.png').convert_alpha()
+            pygame.image.load(f'FlappyBird/assets/coins/coin-{i}-big.png').convert_alpha()
             for i in range(self.STATES)]
         self.cur_coin_idx = 0
         self.image = self.coins[self.cur_coin_idx]
@@ -189,7 +189,7 @@ class Coin(pygame.sprite.Sprite):
         """Change the coin's to a picture depicting the next position of the coin.
         Move the coin towards the bird.
         """
-        self.cur_coin_idx = (self.cur_coin_idx + 1) % len(self.coins)
+        self.cur_coin_idx = (self.cur_coin_idx + 1) % self.STATES
         self.image = self.coins[self.cur_coin_idx]
         self.mask = pygame.mask.from_surface(self.image)
         self.rect[0] -= settings.BARRIER_SPEED
@@ -207,7 +207,7 @@ class Background():
         self.backgrounds = []
         for i in range(3):
             self.backgrounds.append(
-                pygame.image.load(f'assets/backgrounds/background-{i}.png'),
+                pygame.image.load(f'FlappyBird/assets/backgrounds/background-{i}.png'),
             )
         self.current_background = 0
 
@@ -255,7 +255,7 @@ class Frame(pygame.sprite.Sprite):
     def __init__(self):
         """Initialize the frame."""
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('assets/ground.png').convert_alpha()
+        self.image = pygame.image.load('FlappyBird/assets/ground.png').convert_alpha()
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         self.rect[0] = 0
@@ -268,9 +268,9 @@ class CoinScore():
     def __init__(self):
         """Initialize the coin score."""
         self.offset = 10
-        self.coin = pygame.image.load('assets/coins/coin-0-big.png').convert_alpha()
+        self.coin = pygame.image.load('FlappyBird/assets/coins/coin-0-big.png').convert_alpha()
         self.lil_nums = [pygame.image.load(
-            f'assets/numbers/{i}-little.png') for i in range(10)]
+            f'FlappyBird/assets/numbers/{i}-little.png') for i in range(10)]
         self.score = 0
         self.images = [self.lil_nums[0]]
         self.rect = []
@@ -308,8 +308,8 @@ class Score():
     def __init__(self):
         """Initialize the score."""
         self.offset = -10
-        self.lil_nums = [pygame.image.load(f'assets/numbers/{i}-little.png') for i in range(10)]
-        self.big_nums = [pygame.image.load(f'assets/numbers/{i}-big.png') for i in range(10)]
+        self.lil_nums = [pygame.image.load(f'FlappyBird/assets/numbers/{i}-little.png') for i in range(10)]
+        self.big_nums = [pygame.image.load(f'FlappyBird/assets/numbers/{i}-big.png') for i in range(10)]
         self.score = 0
         self.images = [self.lil_nums[0]]
         self.rect = []

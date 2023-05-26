@@ -36,7 +36,7 @@ def task_format():
 def task_play():
     """Run game."""
     return {
-        'actions': ["cd FlappyBird && python3 __main__.py && cd .."],
+        'actions': ["python3 FlappyBird/__main__.py"],
     }
 
 
@@ -51,4 +51,11 @@ def task_build():
     """Build wheel."""
     return {
         'actions': ['pyproject-build -w'],
+    }
+
+def task_test():
+    """Test the app."""
+    return {
+        'actions': ['coverage run -m unittest discover -s "test" -v && coverage html'],
+        'verbosity': 2
     }
