@@ -1,4 +1,3 @@
-import settings
 import pygame
 from enum import Enum
 import os
@@ -6,6 +5,7 @@ import sys
 
 # local imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../FlappyBird')))
+import settings
 
 
 class ScreenState(Enum):

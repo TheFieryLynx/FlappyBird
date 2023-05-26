@@ -26,7 +26,7 @@ def task_format():
     """Format all .py files."""
     return {'actions': ["""
                 autopep8 --in-place --aggressive FlappyBird/__main__.py
-                autopep8 --in-place --aggressive FlappyBird/__init__.py
+                autopep8 --ignore=E402 --in-place --aggressive FlappyBird/__init__.py
                 autopep8 --in-place --aggressive FlappyBird/settings.py
                 autopep8 --in-place --aggressive dodo.py
                 autopep8 --ignore=E402 --in-place --aggressive tests/*
