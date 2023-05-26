@@ -1,4 +1,19 @@
-from __init__ import *
+from __init__ import ScreenState
+from __init__ import Bird
+from __init__ import Barrier
+from __init__ import Coin
+from __init__ import Background
+from __init__ import Screen
+from __init__ import Frame
+from __init__ import CoinScore
+from __init__ import Score
+
+
+import random
+import time
+import pygame
+
+import settings
 
 
 def welcome_screen():
@@ -38,8 +53,8 @@ def background_settings_screen():
     screen.blit(
         VERTICAL_FRAME,
         (
-            settings.BACKGROUND_SETTING_X + settings.BACKGROUND_SETTING_WIDTH *
-            background.current_background,
+            settings.BACKGROUND_SETTING_X + settings.BACKGROUND_SETTING_WIDTH
+            * background.current_background,
             settings.BACKGROUND_SETTING_Y
         )
     )
@@ -65,10 +80,10 @@ def bird_settings_screen():
     screen.blit(
         HORIZONTAL_FRAME,
         (
-            settings.BIRD_SETTING_X + settings.BIRD_SETTING_WIDTH *
-            (bird.current_bird_idx % 3),
-            settings.BIRD_SETTING_Y + settings.BIRD_SETTING_HEIGHT *
-            (bird.current_bird_idx // 3)
+            settings.BIRD_SETTING_X + settings.BIRD_SETTING_WIDTH
+            * (bird.current_bird_idx % 3),
+            settings.BIRD_SETTING_Y + settings.BIRD_SETTING_HEIGHT
+            * (bird.current_bird_idx // 3)
         )
     )
 
@@ -89,8 +104,8 @@ def barrier_settings_screen():
     screen.blit(
         VERTICAL_FRAME,
         (
-            settings.BARRIER_SETTING_X + settings.BARRIER_SETTING_WIDTH *
-            barrier.current_barrier_idx,
+            settings.BARRIER_SETTING_X + settings.BARRIER_SETTING_WIDTH
+            * barrier.current_barrier_idx,
             settings.BARRIER_SETTING_Y
         )
     )
@@ -127,8 +142,9 @@ def run_game():
             coin_group.add(new_coin)
             new_coin_time = True
 
-        if (new_coin_time and
-                barrier.rect[0] + barrier.image.get_width() - Coin.SIZE // 2 <= settings.WINDOW_WIDTH // 2):
+        if (new_coin_time
+            and barrier.rect[0] + barrier.image.get_width()
+                - Coin.SIZE // 2 <= settings.WINDOW_WIDTH // 2):
             new_coin = Coin()
             pos = (settings.WINDOW_WIDTH, random.randint(100, 800))
             new_coin.set_position(*pos)
@@ -159,8 +175,8 @@ def run_game():
         bird_pos = bird_group.sprites(
         )[0].rect[0] + bird_group.sprites()[0].image.get_width() // 2
         barrier_pos = (
-            barrier_group.sprites()[0].rect[0] +
-            barrier_group.sprites()[0].image.get_width() // 2
+            barrier_group.sprites()[0].rect[0]
+            + barrier_group.sprites()[0].image.get_width() // 2
         )
 
         if not passed and bird_pos >= barrier_pos:
@@ -192,7 +208,6 @@ def game_over():
     frame_group.draw(screen.screen)
 
 
-# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../FlappyBird')))
 MENU_LAYOUT = pygame.image.load('FlappyBird/assets/layouts/menu-layout.png')
 BACKGROUND_SETTINGS_LAYOUT = pygame.image.load('FlappyBird/assets/layouts/background-settings-layout.png')
 BIRD_SETTINGS_LAYOUT = pygame.image.load('FlappyBird/assets/layouts/bird-settings-layout.png')

@@ -15,7 +15,7 @@ def task_html_en():
 def task_check_style():
     """Make codestyle check."""
     return {'actions': ["""
-                flake8
+                flake8 --ignore=E402,W503
                 pydocstyle
                 """],
             'verbosity': 2,
@@ -26,8 +26,9 @@ def task_format():
     """Format all .py files."""
     return {'actions': ["""
                 autopep8 --in-place --aggressive FlappyBird/__main__.py
-                autopep8 --in-place --aggressive dodo.py
+                autopep8 --in-place --aggressive FlappyBird/__init__.py
                 autopep8 --in-place --aggressive FlappyBird/settings.py
+                autopep8 --in-place --aggressive dodo.py
                 autopep8 --ignore=E402 --in-place --aggressive tests/*
                 """],
             'verbosity': 2,

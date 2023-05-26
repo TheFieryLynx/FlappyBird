@@ -1,12 +1,11 @@
+import settings
 import pygame
-import time
-import random
 from enum import Enum
 import os
 import sys
 
 # local imports
-import settings
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../FlappyBird')))
 
 
 class ScreenState(Enum):
@@ -356,5 +355,3 @@ class Score():
         for image in images:
             screen.blit(image, [cur_offset_x, offset_y])
             cur_offset_x += image.get_width() + 2
-
-
