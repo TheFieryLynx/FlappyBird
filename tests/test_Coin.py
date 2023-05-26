@@ -5,9 +5,11 @@ from unittest.mock import MagicMock
 sys.path.insert(1, 'FlappyBird')
 import FlappyBird
 
+
 def setUpModule():
     FlappyBird.pygame = MagicMock()
     FlappyBird.pygame.image.load().convert_alpha().get_rect = MagicMock(return_value=[0, 0])
+
 
 class TestInit(unittest.TestCase):
     def test_coin_init(self):
@@ -19,6 +21,7 @@ class TestInit(unittest.TestCase):
         self.assertEqual(coin.rect,
                          [FlappyBird.settings.WINDOW_WIDTH, FlappyBird.settings.WINDOW_HEIGHT])
 
+
 class TestPosition(unittest.TestCase):
     def setUp(self):
         self.coin = FlappyBird.Coin()
@@ -26,7 +29,7 @@ class TestPosition(unittest.TestCase):
     def test_set_position(self):
         self.coin.set_position(100, 500)
         self.assertEqual(self.coin.rect, [100, 500])
-    
+
     def test_update(self):
         before_coord = self.coin.rect[0]
         before_idx = self.coin.cur_coin_idx

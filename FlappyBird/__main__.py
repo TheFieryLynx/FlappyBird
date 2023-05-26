@@ -1,5 +1,6 @@
 from __init__ import *
 
+
 def welcome_screen():
     """Display game start screen and listen for keydown events."""
     for event in pygame.event.get():
@@ -189,6 +190,7 @@ def game_over():
     score.show(screen)
     pygame.time.Clock().tick(10)
     frame_group.draw(screen.screen)
+
 
 # sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../FlappyBird')))
 MENU_LAYOUT = pygame.image.load('FlappyBird/assets/layouts/menu-layout.png')

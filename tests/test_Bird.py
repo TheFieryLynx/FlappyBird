@@ -5,9 +5,11 @@ from unittest.mock import MagicMock
 sys.path.insert(1, 'FlappyBird')
 import FlappyBird
 
+
 def setUpModule():
     FlappyBird.pygame = MagicMock()
     FlappyBird.pygame.image.load().convert_alpha().get_rect = MagicMock(return_value=[0, 0])
+
 
 class TestInit(unittest.TestCase):
     def test_bird_init(self):
@@ -22,6 +24,7 @@ class TestInit(unittest.TestCase):
         bird.image.get_rect.assert_called_with()
         self.assertEqual(bird.rect,
                          [FlappyBird.settings.BIRD_INIT_X, FlappyBird.settings.BIRD_INIT_Y])
+
 
 class TestChangeBird(unittest.TestCase):
     def setUp(self):
@@ -92,11 +95,11 @@ class TestFly(unittest.TestCase):
         self.bird.fly()
         self.assertEqual(self.bird.current_image, 0)
         self.assertEqual(self.bird.image, self.bird.current_bird[self.bird.current_image])
-    
+
     def test_jump(self):
         self.bird.jump()
         self.assertEqual(self.bird.fall, -27)
-    
+
     def test_update(self):
         before_coord = self.bird.rect[1]
         self.assertEqual(self.bird.fall, 0)

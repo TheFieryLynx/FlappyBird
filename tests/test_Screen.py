@@ -5,9 +5,11 @@ from unittest.mock import MagicMock
 sys.path.insert(1, 'FlappyBird')
 import FlappyBird
 
+
 def setUpModule():
     FlappyBird.pygame = MagicMock()
     FlappyBird.pygame.display.set_mode = MagicMock()
+
 
 class TestInit(unittest.TestCase):
     def test_screen_init(self):
@@ -18,6 +20,7 @@ class TestInit(unittest.TestCase):
         ))
         self.assertEqual(screen.screen, FlappyBird.pygame.display.set_mode())
         self.assertEqual(screen.state, FlappyBird.ScreenState.MENU)
+
 
 class TestBlit(unittest.TestCase):
     def test_blit(self):

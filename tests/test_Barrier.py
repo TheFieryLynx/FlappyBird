@@ -5,9 +5,11 @@ from unittest.mock import MagicMock
 sys.path.insert(1, 'FlappyBird')
 import FlappyBird
 
+
 def setUpModule():
     FlappyBird.pygame = MagicMock()
     FlappyBird.pygame.image.load().convert_alpha().get_rect = MagicMock(return_value=[0, 0])
+
 
 class TestInit(unittest.TestCase):
     def test_barrier_init(self):
@@ -18,6 +20,7 @@ class TestInit(unittest.TestCase):
         barrier.image.get_rect.assert_called_with()
         self.assertEqual(barrier.rect,
                          [FlappyBird.settings.BARRIER_INIT_X, FlappyBird.settings.BARRIER_INIT_Y])
+
 
 class TestChangeBarrier(unittest.TestCase):
     def setUp(self):
@@ -41,6 +44,7 @@ class TestChangeBarrier(unittest.TestCase):
             self.barrier.change_barrier_left()
             self.assertEqual(self.barrier.current_barrier_idx, i)
 
+
 class TestGetCenterPosition(unittest.TestCase):
     def test_get_center_position(self):
         barrier = FlappyBird.Barrier()
@@ -61,7 +65,7 @@ class TestGetCenterPosition(unittest.TestCase):
 class TestPosition(unittest.TestCase):
     def setUp(self):
         self.barrier = FlappyBird.Barrier()
-    
+
     def test_update(self):
         before_coord = self.barrier.rect[0]
         # moving left

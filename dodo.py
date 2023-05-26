@@ -25,9 +25,10 @@ def task_check_style():
 def task_format():
     """Format all .py files."""
     return {'actions': ["""
-                autopep8 --in-place --aggressive --aggressive FlappyBird/__main__.py
-                autopep8 --in-place --aggressive --aggressive dodo.py
-                autopep8 --in-place --aggressive --aggressive FlappyBird/settings.py
+                autopep8 --in-place --aggressive FlappyBird/__main__.py
+                autopep8 --in-place --aggressive dodo.py
+                autopep8 --in-place --aggressive FlappyBird/settings.py
+                autopep8 --ignore=E402 --in-place --aggressive tests/*
                 """],
             'verbosity': 2,
             }
@@ -53,9 +54,10 @@ def task_build():
         'actions': ['pyproject-build -w'],
     }
 
-def task_test():
+
+def task_tests():
     """Test the app."""
     return {
-        'actions': ['coverage run -m unittest discover -s "test" -v && coverage html'],
+        'actions': ['coverage run -m unittest discover -s "tests" -v && coverage html'],
         'verbosity': 2
     }
