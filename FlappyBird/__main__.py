@@ -12,6 +12,7 @@ from __init__ import Score
 import random
 import time
 import pygame
+import os
 
 import settings
 
@@ -208,13 +209,14 @@ def game_over():
     frame_group.draw(screen.screen)
 
 
-MENU_LAYOUT = pygame.image.load('FlappyBird/assets/layouts/menu-layout.png')
-BACKGROUND_SETTINGS_LAYOUT = pygame.image.load('FlappyBird/assets/layouts/background-settings-layout.png')
-BIRD_SETTINGS_LAYOUT = pygame.image.load('FlappyBird/assets/layouts/bird-settings-layout.png')
-BARRIER_SETTINGS_LAYOUT = pygame.image.load('FlappyBird/assets/layouts/barrier-settings-layout.png')
-GAME_OVER_LAYOUT = pygame.image.load('FlappyBird/assets/layouts/game-over-layout.png')
-VERTICAL_FRAME = pygame.image.load('FlappyBird/assets/vertical-frame.png')
-HORIZONTAL_FRAME = pygame.image.load('FlappyBird/assets/horizontal-frame.png')
+path = os.path.join(os.path.dirname(__file__), f'assets')
+MENU_LAYOUT = pygame.image.load(path + '/layouts/menu-layout.png')
+BACKGROUND_SETTINGS_LAYOUT = pygame.image.load(path + '/layouts/background-settings-layout.png')
+BIRD_SETTINGS_LAYOUT = pygame.image.load(path + '/layouts/bird-settings-layout.png')
+BARRIER_SETTINGS_LAYOUT = pygame.image.load(path + '/layouts/barrier-settings-layout.png')
+GAME_OVER_LAYOUT = pygame.image.load(path + '/layouts/game-over-layout.png')
+VERTICAL_FRAME = pygame.image.load(path + '/vertical-frame.png')
+HORIZONTAL_FRAME = pygame.image.load(path + '/horizontal-frame.png')
 
 pygame.init()
 screen = Screen()
