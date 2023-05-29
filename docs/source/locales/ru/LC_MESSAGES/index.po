@@ -1,0 +1,246 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Andrew Birukov, Aleksandra Korabulina, Diana Rudenko
+# This file is distributed under the same license as the Flappy Bird
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Flappy Bird \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-05-23 15:05+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ru\n"
+"Language-Team: ru <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../source/index.rst:9
+msgid "Contents:"
+msgstr ""
+
+#: ../../source/index.rst:7
+msgid "Welcome to Flappy Bird's documentation!"
+msgstr "Добро пожаловать в документацию Flappy Bird!"
+
+#: FlappyBird.Background:1 of
+msgid "Class representing and controlling the game's background."
+msgstr "Класс, представляющий фон игры и управляющий им."
+
+#: FlappyBird.Background.change_background_left:1 of
+msgid ""
+"Change the chosen baackground to the left side background on the screen "
+"(cyclically)."
+msgstr "Изменяет выбранный фон влево (циклически)."
+
+#: FlappyBird.Background.change_background_right:1 of
+msgid ""
+"Change the chosen baackground to the right side background on the screen "
+"(cyclically)."
+msgstr "Изменяет выбранный фон вправо (циклически)."
+
+#: FlappyBird.Background.get_image:1 of
+msgid "Return current background image."
+msgstr "Возвращает текущее фоновое изображение."
+
+#: FlappyBird.Barrier:1 of
+msgid "Class representing and controlling a barrier's sprite in the game."
+msgstr "Класс, управляющий спрайтами барьеров в игре."
+
+#: FlappyBird.Barrier.change_barrier_left:1 of
+msgid ""
+"Change the chosen barrier to the left side barrier on the screen "
+"(cyclically)."
+msgstr "Изменяет выбранный барьер влево (циклически)."
+
+#: FlappyBird.Barrier.change_barrier_right:1 of
+msgid ""
+"Change the chosen barrier to the right side barrier on the screen "
+"(cyclically)."
+msgstr "Изменяет выбранный барьер вправо (циклически)."
+
+#: FlappyBird.Barrier.get_center_position:1 of
+msgid "Return the barrier's current center coordinates."
+msgstr "Возвращает текущие координаты центра барьеров."
+
+#: FlappyBird.Barrier.reset:1 of
+msgid "Reset the barrier's position to initial."
+msgstr "Возвращает положение барьера в исходное."
+
+#: FlappyBird.Barrier.set_position:1 of
+msgid "Set barrier's coordinates."
+msgstr "Установка координатов барьеров."
+
+#: FlappyBird.Barrier.set_position FlappyBird.Coin.set_position
+#: FlappyBird.CoinScore.update FlappyBird.Score.show FlappyBird.Score.update
+#: FlappyBird.Screen.blit of
+msgid "Parameters"
+msgstr "Параметры"
+
+#: FlappyBird.Barrier.set_position:3 FlappyBird.Coin.set_position:3 of
+msgid "Horizontal coordinate value to set."
+msgstr "Значение координаты по горизонтали."
+
+#: FlappyBird.Barrier.set_position:5 FlappyBird.Coin.set_position:5 of
+msgid "Vertical coordinate value to set."
+msgstr "Значение координаты по вертикали"
+
+#: FlappyBird.Barrier.update:1 of
+msgid "Imitate the barrier moving towards the bird."
+msgstr "Имитирует движение птицы навстречу птице."
+
+#: FlappyBird.Bird:1 of
+msgid "Class representing and controlling a bird's sprite in the game."
+msgstr "Класс, управляющий спрайтами птицы в игре."
+
+#: FlappyBird.Bird.change_bird_down:1 of
+msgid "Change the chosen bird to the bird below on the screen (cyclically)."
+msgstr "Изменяет выбранную птицу вниз (циклически)."
+
+#: FlappyBird.Bird.change_bird_left:1 of
+msgid "Change the chosen bird to the left side bird on the screen (cyclically)."
+msgstr "Изменяет выбранную птицу влево (циклически)."
+
+#: FlappyBird.Bird.change_bird_right:1 of
+msgid "Change the chosen bird to the right side bird on the screen (cyclically)."
+msgstr "Изменяет выбранную птицу вправо (циклически)."
+
+#: FlappyBird.Bird.change_bird_up:1 of
+msgid "Change the chosen bird to the bird up on the screen (cyclically)."
+msgstr "Изменяет выбранную птицу вверх (циклически)."
+
+#: FlappyBird.Bird.fly:1 of
+msgid ""
+"Change the bird's picture to a picture depicting the next position of the"
+" bird."
+msgstr "Изменение изображение птицы на следующее"
+
+#: FlappyBird.Bird.jump:1 of
+msgid "Imitate the bird's jump up."
+msgstr "Имитация прыжка птицы"
+
+#: FlappyBird.Bird.reset:1 of
+msgid "Reset the bird's position to initial and stop the bird from falling."
+msgstr "Возврат положения птицы в исходное и предотвращение падения птицы."
+
+#: FlappyBird.Bird.set_position:1 of
+msgid "Set initial bird's coordinates corresponding to settings."
+msgstr "Установка начальных координат птицы в соответствии с настройками."
+
+#: FlappyBird.Bird.update:1 of
+msgid "Imitate the bird moving forward and falling."
+msgstr "Имитация движения птицы вперед и падение."
+
+#: FlappyBird.Coin:1 of
+msgid "Class representing and controlling a coin's sprite in the game."
+msgstr "Класс, управляющий спрайтами монеты в игре."
+
+#: FlappyBird.Coin.reset:1 of
+msgid "Reset the coin's position to initial."
+msgstr "Возврат положения монеты в исходное."
+
+#: FlappyBird.Coin.set_position:1 of
+msgid "Set coin's coordinates."
+msgstr "Установка координат монеты."
+
+#: FlappyBird.Coin.update:1 of
+msgid ""
+"Change the coin's to a picture depicting the next position of the coin. "
+"Move the coin towards the bird."
+msgstr ""
+"Замените изображение монетки на следующее. "
+"Переместить монету в сторону птицы."
+
+#: FlappyBird.CoinScore:1 of
+msgid "Class representing and controlling the player's coin score."
+msgstr "Класс, управляющий подсчетом количества монет в игре."
+
+#: FlappyBird.CoinScore.increase:1 of
+msgid "Increase the player's coin score by one."
+msgstr "Увеличить количество монет на 1. "
+
+#: FlappyBird.CoinScore.reset:1 of
+msgid "Reset the player's coin score to zero."
+msgstr "Сбросить счетчик количества монет. "
+
+#: FlappyBird.CoinScore.update:1 of
+msgid "Display current coin score on the screen."
+msgstr "Отрисовать текущее количество монет на экран. "
+
+#: FlappyBird.CoinScore.update:3 FlappyBird.Score.show:3
+#: FlappyBird.Score.update:3 of
+msgid "Game's screen."
+msgstr "Экран игры. "
+
+#: FlappyBird.Frame:1 of
+msgid ""
+"Class representing and controlling the game's frame. Frame is a thin line"
+" at the bottom of the screen, which is needed to control the fall of the "
+"bird to the ground."
+msgstr ""
+"Класс, управляющий фреймами игры. "
+"Рамка - это тонкая линия в нижней части экрана, "
+"которая необходима для контроля падением птицы на землю."
+
+#: FlappyBird.Score:1 of
+msgid "Class representing and controlling the player's score."
+msgstr "Класс, управляющий счетом игрока."
+
+#: FlappyBird.Score.increase:1 of
+msgid "Increase the player's score by one."
+msgstr "Увеличить счет на 1."
+
+#: FlappyBird.Score.reset:1 of
+msgid "Reset the player's score to zero."
+msgstr "Сбросить счет игрока."
+
+#: FlappyBird.Score.show:1 of
+msgid "Display final score on the screen."
+msgstr "Отрисовать финальный счет на экран."
+
+#: FlappyBird.Score.update:1 of
+msgid "Display current score on the screen."
+msgstr "Отрисовать текущий счет на экран."
+
+#: FlappyBird.Screen:1 of
+msgid "Class representing and controlling the game's screen."
+msgstr "Класс, управляющий экраном игры."
+
+#: FlappyBird.Screen.blit:1 of
+msgid "Display an image on the scrren."
+msgstr "Отрисовать изображение на экране."
+
+#: FlappyBird.Screen.blit:3 of
+msgid "Image to display."
+msgstr "Изображение."
+
+#: FlappyBird.Screen.blit:5 of
+msgid "Horizontal and vertical screen offset to display the image."
+msgstr "Отступы по вертикали и горизонтали от края экрана."
+
+#: FlappyBird.ScreenState:1 of
+msgid "Enum representing all possible game screen states."
+msgstr "Enum, содержащий все возможные состояния экрана игры."
+
+#: ../../source/index.rst:18
+msgid "Indices and tables"
+msgstr ""
+
+#: ../../source/index.rst:20
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../../source/index.rst:21
+msgid ":ref:`modindex`"
+msgstr ""
+
+#: ../../source/index.rst:22
+msgid ":ref:`search`"
+msgstr ""
+

@@ -1,0 +1,240 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Andrew Birukov, Aleksandra Korabulina, Diana Rudenko
+# This file is distributed under the same license as the Flappy Bird
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Flappy Bird \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-05-23 15:05+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../source/index.rst:9
+msgid "Contents:"
+msgstr ""
+
+#: ../../source/index.rst:7
+msgid "Welcome to Flappy Bird's documentation!"
+msgstr ""
+
+#: FlappyBird.Background:1 of
+msgid "Class representing and controlling the game's background."
+msgstr ""
+
+#: FlappyBird.Background.change_background_left:1 of
+msgid ""
+"Change the chosen baackground to the left side background on the screen "
+"(cyclically)."
+msgstr ""
+
+#: FlappyBird.Background.change_background_right:1 of
+msgid ""
+"Change the chosen baackground to the right side background on the screen "
+"(cyclically)."
+msgstr ""
+
+#: FlappyBird.Background.get_image:1 of
+msgid "Return current background image."
+msgstr ""
+
+#: FlappyBird.Barrier:1 of
+msgid "Class representing and controlling a barrier's sprite in the game."
+msgstr ""
+
+#: FlappyBird.Barrier.change_barrier_left:1 of
+msgid ""
+"Change the chosen barrier to the left side barrier on the screen "
+"(cyclically)."
+msgstr ""
+
+#: FlappyBird.Barrier.change_barrier_right:1 of
+msgid ""
+"Change the chosen barrier to the right side barrier on the screen "
+"(cyclically)."
+msgstr ""
+
+#: FlappyBird.Barrier.get_center_position:1 of
+msgid "Return the barrier's current center coordinates."
+msgstr ""
+
+#: FlappyBird.Barrier.reset:1 of
+msgid "Reset the barrier's position to initial."
+msgstr ""
+
+#: FlappyBird.Barrier.set_position:1 of
+msgid "Set barrier's coordinates."
+msgstr ""
+
+#: FlappyBird.Barrier.set_position FlappyBird.Coin.set_position
+#: FlappyBird.CoinScore.update FlappyBird.Score.show FlappyBird.Score.update
+#: FlappyBird.Screen.blit of
+msgid "Parameters"
+msgstr ""
+
+#: FlappyBird.Barrier.set_position:3 FlappyBird.Coin.set_position:3 of
+msgid "Horizontal coordinate value to set."
+msgstr ""
+
+#: FlappyBird.Barrier.set_position:5 FlappyBird.Coin.set_position:5 of
+msgid "Vertical coordinate value to set."
+msgstr ""
+
+#: FlappyBird.Barrier.update:1 of
+msgid "Imitate the barrier moving towards the bird."
+msgstr ""
+
+#: FlappyBird.Bird:1 of
+msgid "Class representing and controlling a bird's sprite in the game."
+msgstr ""
+
+#: FlappyBird.Bird.change_bird_down:1 of
+msgid "Change the chosen bird to the bird below on the screen (cyclically)."
+msgstr ""
+
+#: FlappyBird.Bird.change_bird_left:1 of
+msgid "Change the chosen bird to the left side bird on the screen (cyclically)."
+msgstr ""
+
+#: FlappyBird.Bird.change_bird_right:1 of
+msgid "Change the chosen bird to the right side bird on the screen (cyclically)."
+msgstr ""
+
+#: FlappyBird.Bird.change_bird_up:1 of
+msgid "Change the chosen bird to the bird up on the screen (cyclically)."
+msgstr ""
+
+#: FlappyBird.Bird.fly:1 of
+msgid ""
+"Change the bird's picture to a picture depicting the next position of the"
+" bird."
+msgstr ""
+
+#: FlappyBird.Bird.jump:1 of
+msgid "Imitate the bird's jump up."
+msgstr ""
+
+#: FlappyBird.Bird.reset:1 of
+msgid "Reset the bird's position to initial and stop the bird from falling."
+msgstr ""
+
+#: FlappyBird.Bird.set_position:1 of
+msgid "Set initial bird's coordinates corresponding to settings."
+msgstr ""
+
+#: FlappyBird.Bird.update:1 of
+msgid "Imitate the bird moving forward and falling."
+msgstr ""
+
+#: FlappyBird.Coin:1 of
+msgid "Class representing and controlling a coin's sprite in the game."
+msgstr ""
+
+#: FlappyBird.Coin.reset:1 of
+msgid "Reset the coin's position to initial."
+msgstr ""
+
+#: FlappyBird.Coin.set_position:1 of
+msgid "Set coin's coordinates."
+msgstr ""
+
+#: FlappyBird.Coin.update:1 of
+msgid ""
+"Change the coin's to a picture depicting the next position of the coin. "
+"Move the coin towards the bird."
+msgstr ""
+
+#: FlappyBird.CoinScore:1 of
+msgid "Class representing and controlling the player's coin score."
+msgstr ""
+
+#: FlappyBird.CoinScore.increase:1 of
+msgid "Increase the player's coin score by one."
+msgstr ""
+
+#: FlappyBird.CoinScore.reset:1 of
+msgid "Reset the player's coin score to zero."
+msgstr ""
+
+#: FlappyBird.CoinScore.update:1 of
+msgid "Display current coin score on the screen."
+msgstr ""
+
+#: FlappyBird.CoinScore.update:3 FlappyBird.Score.show:3
+#: FlappyBird.Score.update:3 of
+msgid "Game's screen."
+msgstr ""
+
+#: FlappyBird.Frame:1 of
+msgid ""
+"Class representing and controlling the game's frame. Frame is a thin line"
+" at the bottom of the screen, which is needed to control the fall of the "
+"bird to the ground."
+msgstr ""
+
+#: FlappyBird.Score:1 of
+msgid "Class representing and controlling the player's score."
+msgstr ""
+
+#: FlappyBird.Score.increase:1 of
+msgid "Increase the player's score by one."
+msgstr ""
+
+#: FlappyBird.Score.reset:1 of
+msgid "Reset the player's score to zero."
+msgstr ""
+
+#: FlappyBird.Score.show:1 of
+msgid "Display final score on the screen."
+msgstr ""
+
+#: FlappyBird.Score.update:1 of
+msgid "Display current score on the screen."
+msgstr ""
+
+#: FlappyBird.Screen:1 of
+msgid "Class representing and controlling the game's screen."
+msgstr ""
+
+#: FlappyBird.Screen.blit:1 of
+msgid "Display an image on the scrren."
+msgstr ""
+
+#: FlappyBird.Screen.blit:3 of
+msgid "Image to display."
+msgstr ""
+
+#: FlappyBird.Screen.blit:5 of
+msgid "Horizontal and vertical screen offset to display the image."
+msgstr ""
+
+#: FlappyBird.ScreenState:1 of
+msgid "Enum representing all possible game screen states."
+msgstr ""
+
+#: ../../source/index.rst:18
+msgid "Indices and tables"
+msgstr ""
+
+#: ../../source/index.rst:20
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../../source/index.rst:21
+msgid ":ref:`modindex`"
+msgstr ""
+
+#: ../../source/index.rst:22
+msgid ":ref:`search`"
+msgstr ""
+
