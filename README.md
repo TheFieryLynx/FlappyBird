@@ -41,6 +41,7 @@ doit html_ru
 ### Установка и запуск:
 Рекомендуется создать отдельное виртуальное окружение:
 ```pipenv shell```
+
 Установить .whl пакет:
 ```pip install /PATH/TO/FlappyBird/dist/пакет.whl```
 
