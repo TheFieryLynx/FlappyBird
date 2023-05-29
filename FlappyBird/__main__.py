@@ -13,6 +13,7 @@ import random
 import time
 import pygame
 import os
+import sys
 
 import settings
 
@@ -22,6 +23,7 @@ def welcome_screen():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
+            sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 screen.state = ScreenState.PLAY
@@ -43,6 +45,7 @@ def background_settings_screen():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
+            sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
                 screen.state = ScreenState.MENU
@@ -66,6 +69,7 @@ def bird_settings_screen():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
+            sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
                 screen.state = ScreenState.MENU
@@ -94,6 +98,7 @@ def barrier_settings_screen():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
+            sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
                 screen.state = ScreenState.MENU
@@ -125,6 +130,7 @@ def run_game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+                sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     bird.jump()
@@ -193,6 +199,7 @@ def game_over():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
+            sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 screen.state = ScreenState.PLAY
