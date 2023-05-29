@@ -49,6 +49,8 @@ doit html_ru
 
 ## Макет приложения:
 
+Figma проекта: https://www.figma.com/file/IE0SeKEI8i1PB8rBS9ueCF/Flappy-Bird?type=design&node-id=0%3A1&t=qzEJch6JvpPNb4lS-1
+
 ### Главная страница
 
 ![](./images/menu.png)
